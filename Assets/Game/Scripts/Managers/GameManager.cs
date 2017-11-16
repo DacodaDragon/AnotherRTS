@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using AnotherRTS.Util;
 
-namespace RENAMETHIS
+namespace AnotherRTS.Management
 {
-    public class GameManager : DDOLSingleton<GameManager>
-    {
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-        }
-    }
+	public class GameManager : DDOLSingleton<GameManager>
+	{
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.R)) {
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			}
+		}
+	}
 }

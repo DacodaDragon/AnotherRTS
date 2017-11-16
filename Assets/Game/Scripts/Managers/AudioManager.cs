@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AnotherRTS.Util;
 
-namespace RENAMETHIS
+namespace AnotherRTS.Management
 {
 	public class AudioManager : DDOLSingleton<AudioManager>
 	{

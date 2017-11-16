@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RENAMETHIS
+namespace AnotherRTS.Util
 {
-    public class DontDestroyOnLoad : MonoBehaviour
-    {
-        void Start()
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
-    }
+	public class DontDestroyOnLoad : MonoBehaviour
+	{
+		private void Start()
+		{
+			DontDestroyOnLoad(this.gameObject);
+		}
+	}
 }
