@@ -15,14 +15,10 @@ namespace AnotherRTS.Camera
         {
             m_CamPosHelper = new GameObject("CamPositionHelper").transform;
             m_CamPosHelper.SetParent(transform);
-
-            // Keyboard Controls
             m_CameraMovemenManager.Add(new CameraControlKeyboard());
-            
-            // Mouse Controls 
             m_CameraMovemenManager.Add(new CameraControllsMouse(0.02f, 1));
 
-            // Camera Borders
+            if (!Debug.isDebugBuild)
             m_CameraMovemenManager.Add(new CameraControllerCameraBorders());
         }
 
@@ -35,7 +31,6 @@ namespace AnotherRTS.Camera
         private void MoveInRelativeDirection(Vector4 movedirection)
         {
             UpdatePositionHelper(transform.position, transform.eulerAngles);
-
             movedirection = movedirection * Time.deltaTime * m_SpeedMultiplier;
             transform.position += m_CamPosHelper.forward * movedirection.y;
             transform.position += m_CamPosHelper.right * movedirection.x;
@@ -54,7 +49,7 @@ namespace AnotherRTS.Camera
 
         private void Update()
         {
-            MoveInRelativeDirection(m_CameraMovemenManager.GetMovementSmoothed(0.2f));
+            MoveInRelativeDirection(m_CameraMovemenManager.GetMovementRaw());
         }
     }
 
