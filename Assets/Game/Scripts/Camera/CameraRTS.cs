@@ -54,7 +54,7 @@ namespace AnotherRTS.Camera
 
         private void Update()
         {
-            MoveInRelativeDirection(m_CameraMovemenManager.GetMovementSmoothed());
+            MoveInRelativeDirection(m_CameraMovemenManager.GetMovementSmoothed(0.2f));
         }
     }
 

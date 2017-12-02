@@ -57,7 +57,7 @@ namespace AnotherRTS.Camera
             return moveVector;
         }
 
-        public Vector4 GetMovementSmoothed()
+        public Vector4 GetMovementSmoothed(float SmoothModifier)
         {
             if (movementControls == null)
                 return Vector4.zero;
@@ -69,10 +69,11 @@ namespace AnotherRTS.Camera
                 moveVector += movementControls[i].Move();
             }
 
-            smoothedMovement.x += (moveVector.x - smoothedMovement.x) * 0.2f;
-            smoothedMovement.y += (moveVector.y - smoothedMovement.y) * 0.2f;
-            smoothedMovement.z += (moveVector.z - smoothedMovement.z) * 0.2f;
-            smoothedMovement.w += (moveVector.w - smoothedMovement.w) * 0.2f;
+            // TODO: Handle Camera smoothing differently
+            smoothedMovement.x += (moveVector.x - smoothedMovement.x) * SmoothModifier;
+            smoothedMovement.y += (moveVector.y - smoothedMovement.y) * SmoothModifier;
+            smoothedMovement.z += (moveVector.z - smoothedMovement.z) * SmoothModifier;
+            smoothedMovement.w += (moveVector.w - smoothedMovement.w) * SmoothModifier;
 
 
             return smoothedMovement;
