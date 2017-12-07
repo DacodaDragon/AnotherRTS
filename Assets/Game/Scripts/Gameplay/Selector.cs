@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UCamera = UnityEngine.Camera;
-using AnotherRTS.Gameplay.Modules;
 
 namespace AnotherRTS.Gameplay
 {
@@ -12,6 +11,9 @@ namespace AnotherRTS.Gameplay
 		private UCamera m_Camera;
 
 		[SerializeField] private LayerMask m_SelectionLayers;
+		[SerializeField] private List<Entity> m_SelectedEntities;
+
+		public List<Entity> SelectedEntities { get { return m_SelectedEntities; } }
 
 		private void Start()
 		{
@@ -26,9 +28,13 @@ namespace AnotherRTS.Gameplay
 				bool hitSuccess = Physics.Raycast(m_Camera.ScreenPointToRay(mousePosition), out hitInfo, m_Camera.farClipPlane, m_SelectionLayers);
 
 				if (hitSuccess) {
-					ISelectable selectable = hitInfo.collider.GetComponent<ISelectable>();
-					if (selectable != null) {
-						selectable.IsSelected = !selectable.IsSelected;
+					Entity entity = hitInfo.collider.GetComponent<Entity>();
+					if (entity != null) {
+						if (m_SelectedEntities.Contains(entity)) {
+							m_SelectedEntities.Remove(entity);
+						} else {
+							m_SelectedEntities.Add(entity);
+						}
 					}
 				}
 			}
