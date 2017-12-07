@@ -1,4 +1,4 @@
-﻿namespace AnotherRTS.Util.StaticTuples
+﻿namespace AnotherRTS.Util.Tuples
 {
     public struct Tuple3<Type1, Type2, Type3>
     {
