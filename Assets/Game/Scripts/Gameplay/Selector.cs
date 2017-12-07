@@ -28,6 +28,10 @@ namespace AnotherRTS.Gameplay
 		private void Update()
 		{
 			if (Input.GetMouseButtonUp(0)) {
+				if (!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))) {
+					m_SelectedEntities.Clear();
+				}
+
 				Vector2 mousePosition = Input.mousePosition;
 				RaycastHit hitInfo;
 				bool hitSuccess = Physics.Raycast(m_Camera.ScreenPointToRay(mousePosition), out hitInfo, m_Camera.farClipPlane, m_SelectionLayers);
@@ -36,8 +40,6 @@ namespace AnotherRTS.Gameplay
 					Entity entity = hitInfo.collider.GetComponent<Entity>();
 					if (entity != null) {
 						if (m_SelectedEntities.Contains(entity)) {
-							m_SelectedEntities.Remove(entity);
-						} else {
 							m_SelectedEntities.Add(entity);
 						}
 					}
