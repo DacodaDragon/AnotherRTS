@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using UnityEngine;
 
 namespace AnotherRTS.Camera
@@ -16,7 +16,7 @@ namespace AnotherRTS.Camera
             m_CamPosHelper = new GameObject("CamPositionHelper").transform;
             m_CamPosHelper.SetParent(transform);
             m_CameraMovemenManager.Add(new CameraControlKeyboard());
-            m_CameraMovemenManager.Add(new CameraControllsMouse(0.02f, 1));
+            m_CameraMovemenManager.Add(new CameraControlsMouse(0.02f, 1));
 
             if (!Debug.isDebugBuild)
             m_CameraMovemenManager.Add(new CameraControllerCameraBorders());
@@ -49,7 +49,7 @@ namespace AnotherRTS.Camera
 
         private void Update()
         {
-            MoveInRelativeDirection(m_CameraMovemenManager.GetMovementRaw());
+            MoveInRelativeDirection(m_CameraMovemenManager.GetMovementSmoothed(0.2f));
         }
     }
 
