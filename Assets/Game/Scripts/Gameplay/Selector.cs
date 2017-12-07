@@ -15,6 +15,11 @@ namespace AnotherRTS.Gameplay
 
 		public List<Entity> SelectedEntities { get { return m_SelectedEntities; } }
 
+		private void Awake()
+		{
+			m_SelectedEntities = new List<Entity>();
+		}
+
 		private void Start()
 		{
 			m_Camera = UCamera.main;
