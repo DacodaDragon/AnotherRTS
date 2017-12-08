@@ -1,4 +1,4 @@
-﻿namespace AnotherRTS.Management.Input
+﻿namespace AnotherRTS.Management.InputRemap
 {
     public class ControlGroup
     {

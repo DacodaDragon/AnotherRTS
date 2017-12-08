@@ -1,6 +1,6 @@
 ﻿using AnotherRTS.Util;
 
-namespace AnotherRTS.Management.Input
+namespace AnotherRTS.Management.InputRemap
 {
     public class ControlScheme
     {

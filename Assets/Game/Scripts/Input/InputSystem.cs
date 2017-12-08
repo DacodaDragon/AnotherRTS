@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AnotherRTS.Management.Input
+namespace AnotherRTS.Management.InputRemap
 {
     public delegate void KeyDelegate();
 

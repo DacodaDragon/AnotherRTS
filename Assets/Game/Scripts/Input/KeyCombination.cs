@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AnotherRTS.Management.Input
+namespace AnotherRTS.Management.InputRemap
 {
     // TODO Fix this..
     public class KeyCombination
