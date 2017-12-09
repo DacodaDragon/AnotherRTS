@@ -1,4 +1,6 @@
-﻿namespace AnotherRTS.Management.InputRemap
+﻿using UnityEngine;
+
+namespace AnotherRTS.Management.InputRemap
 {
     public class ControlGroup
     {
@@ -34,6 +36,14 @@
 
             combi.delegatee -= handle;
             return true;
+        }
+
+        public void CheckKeyUp(KeyCode keycode)
+        {
+            for (int i = 0; i < m_keyCombinations.Length; i++)
+            {
+                m_keyCombinations[i].CheckKey(keycode);
+            }
         }
     }
 }

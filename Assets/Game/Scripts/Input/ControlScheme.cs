@@ -81,5 +81,18 @@ namespace AnotherRTS.Management.InputRemap
 
             return context.UnHook(name, handle);
         }
+
+        public void CheckKeyUp()
+        {
+            for (int i = 0; i < m_active.Length; i++)
+            {
+                m_active[i].
+            }
+        }
+
+        public void CheckKeyDown()
+        {
+
+        }
     }
 }

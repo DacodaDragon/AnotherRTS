@@ -6,6 +6,11 @@ namespace AnotherRTS.Management.InputRemap
 
     public class InputSystem : MonoBehaviour
     {
-        ControlScheme controlscheme;
+        ControlScheme Scheme = new ControlScheme();
+
+        public void Update()
+        {
+
+        }
     }
 }
