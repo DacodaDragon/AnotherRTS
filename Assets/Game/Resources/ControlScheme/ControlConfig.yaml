@@ -1,4 +1,15 @@
-# Key bindings
+# AnotherRTS fallback key bindings File
+# DaCoda 2017
+# -----------------
+# Requirements:
+#
+# Every control group split by  ---
+# Every control group name must be unique.
+# Every key name must be unique.
+#
+# Warnings:
+# Keys with the same name may cause unwanted behaviour
+# Controlgroups with the same name will cause unwanted behaviour
 name: global
 keys:
     - name : global up
