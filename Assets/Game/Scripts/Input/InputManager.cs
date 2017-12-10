@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+
+namespace AnotherRTS.Management.RemappableInput
 {
-    public void Update()
+    public class InputManager : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        public void Update()
         {
-            Debug.Log("Click!");
+
         }
     }
+
 }
