@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 
-
 namespace AnotherRTS.Management.RemappableInput.IO
 {
 
-    public struct Key
+    public struct KeyData
     {
         public readonly string name;
         public readonly KeyCode[] keycodes;
         public readonly KeyCode[] modifiers;
 
-        public Key(string name, KeyCode[] keycodes, KeyCode[] modifiers)
+        public KeyData(string name, KeyCode[] keycodes, KeyCode[] modifiers)
         {
             this.name = name;
             this.keycodes = keycodes;

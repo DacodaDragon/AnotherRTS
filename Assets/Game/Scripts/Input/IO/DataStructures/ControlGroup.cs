@@ -1,11 +1,11 @@
 ﻿namespace AnotherRTS.Management.RemappableInput.IO
 {
-    public struct ControlGroup
+    public struct ControlGroupData
     {
         public readonly string name;
-        public readonly Key[] keys;
+        public readonly KeyData[] keys;
 
-        public ControlGroup(string name, Key[] keys)
+        public ControlGroupData(string name, KeyData[] keys)
         {
             this.name = name;
             this.keys = keys;
