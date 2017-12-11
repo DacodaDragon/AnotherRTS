@@ -15,7 +15,7 @@ namespace AnotherRTS.Management.RemappableInput.IO
             YamlStream yaml = new YamlStream();
             yaml.Load(reader);
 
-            List<ControlGroup> controlgroups = new List<ControlGroup>();
+            List<ControlGroupData> controlgroups = new List<ControlGroupData>();
             for (int i = 0; i < yaml.Documents.Count; i++)
             {
                controlgroups.Add(HandleControlGroup((YamlMappingNode)yaml.Documents[i].RootNode));
@@ -27,22 +27,22 @@ namespace AnotherRTS.Management.RemappableInput.IO
             }
         }
 
-        public ControlGroup HandleControlGroup(YamlMappingNode node)
+        public ControlGroupData HandleControlGroup(YamlMappingNode node)
         {
             string name = (string)node.Children[new YamlScalarNode("name")];
-            Key[] keys = ReadKeys((YamlSequenceNode)node.Children[new YamlScalarNode("keys")]);
-            return new ControlGroup(name, keys);
+            KeyData[] keys = ReadKeys((YamlSequenceNode)node.Children[new YamlScalarNode("keys")]);
+            return new ControlGroupData(name, keys);
         }
 
-        public Key[] ReadKeys(YamlSequenceNode node)
+        public KeyData[] ReadKeys(YamlSequenceNode node)
         {
-            List<Key> keys = new List<Key>();
+            List<KeyData> keys = new List<KeyData>();
             for (int i = 0; i < node.Children.Count; i++)
             {
                 string name = (string)node[i][new YamlScalarNode("name")];
                 KeyCode[] keycodes = HandleKeyCodes((YamlSequenceNode)node[i][new YamlScalarNode("keycodes")]);
                 KeyCode[] modifiers = HandleKeyCodes((YamlSequenceNode)node[i][new YamlScalarNode("modifiers")]);
-                keys.Add(new Key(name, keycodes, modifiers));
+                keys.Add(new KeyData(name, keycodes, modifiers));
             }
             return keys.ToArray();
         }
