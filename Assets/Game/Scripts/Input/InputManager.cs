@@ -16,14 +16,14 @@ namespace AnotherRTS.Management.RemappableInput
             m_database = factory.Build(reader.FromString(asset.text));
         }
 
-        private void OnGui()
+        private void OnGUI()
         {
-            if (Event.current.type == EventType.KeyDown)
+            if (Event.current.type == EventType.keyDown)
             {
                 m_database.KeyDown(Event.current.keyCode);
             }
 
-            if (Event.current.type == EventType.KeyUp)
+            if (Event.current.type == EventType.keyUp)
             {
                 m_database.KeyUp(Event.current.keyCode);
             }
@@ -42,6 +42,11 @@ namespace AnotherRTS.Management.RemappableInput
         public bool GetKey(int id)
         {
             return m_database.GetKey(id);
+        }
+
+        public int GetKeyID(string name)
+        {
+            return m_database.GetKeyID(name);
         }
     }
 }

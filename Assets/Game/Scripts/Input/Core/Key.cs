@@ -29,26 +29,34 @@ namespace AnotherRTS.Management.RemappableInput
         }
 
         // [TODO] Fix Input to update when keys are released. 
-        public void OnKeyUp(KeyCode KeyCode)
+        public void OnKeyDown(KeyCode KeyCode)
         {
+            if (m_held)
+                return;
+
             for (int i = 0; i < Keys.Length; i++)
             {
                 if (Keys[i] == KeyCode)
                 {
                     m_framePress = Time.frameCount;
                     m_held = true;
+                    return;
                 }
             }
         }
 
-        public void OnKeyDown(KeyCode KeyCode)
+        public void OnKeyUp(KeyCode KeyCode)
         {
+            if (!m_held)
+                return;
+
             for (int i = 0; i < Keys.Length; i++)
             {
                 if (Keys[i] == KeyCode)
                 {
                     m_frameRelease = Time.frameCount;
                     m_held = false;
+                    return;
                 }
             }
         }

@@ -18,6 +18,7 @@ namespace AnotherRTS.Management.RemappableInput
 
         private void SetControlGroups(ControlGroup[] groups)
         {
+            m_GroupDict = new Dictionary<int, ControlGroup>();
             // Link all key ID's to their respective control groups
             // So we can find them back quickly later.
             for (int i = 0; i < groups.Length; i++)
@@ -69,6 +70,14 @@ namespace AnotherRTS.Management.RemappableInput
         public bool GetKeyDown(int id)
         {
             return FindContainingGroup(id).GetKey(id).IsPressed;
+        }
+
+        public int GetKeyID(string name)
+        {
+            int id;
+            if (!m_NameIDPairs.TryGetValue(name, out id))
+                throw new System.Exception("Keybinding \"" + name + "\" doesn't exist!");
+            return id;
         }
     }
 }
