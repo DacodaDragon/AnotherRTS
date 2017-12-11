@@ -9,7 +9,7 @@ namespace AnotherRTS.Management.RemappableInput.IO
 {
     public class YamlControlSchemeReader
     {
-        public void FromString(string content)
+        public ControlGroupData[] FromString(string content)
         {
             StringReader reader = new StringReader(content);
             YamlStream yaml = new YamlStream();
@@ -21,20 +21,17 @@ namespace AnotherRTS.Management.RemappableInput.IO
                controlgroups.Add(HandleControlGroup((YamlMappingNode)yaml.Documents[i].RootNode));
             }
 
-            for (int i = 0; i < controlgroups.Count; i++)
-            {
-                Debug.Log(controlgroups[i].ToString());
-            }
+            return controlgroups.ToArray();
         }
 
-        public ControlGroupData HandleControlGroup(YamlMappingNode node)
+        private ControlGroupData HandleControlGroup(YamlMappingNode node)
         {
             string name = (string)node.Children[new YamlScalarNode("name")];
             KeyData[] keys = ReadKeys((YamlSequenceNode)node.Children[new YamlScalarNode("keys")]);
             return new ControlGroupData(name, keys);
         }
 
-        public KeyData[] ReadKeys(YamlSequenceNode node)
+        private KeyData[] ReadKeys(YamlSequenceNode node)
         {
             List<KeyData> keys = new List<KeyData>();
             for (int i = 0; i < node.Children.Count; i++)
