@@ -7,11 +7,11 @@ namespace AnotherRTS.Util
         /// <summary>
         /// Adds an element to an array
         /// </summary>
-        public static void AddToArray<Type>(Type[] array, params Type[] elements)
+        public static Type[] AddToArray<Type>(Type[] array, params Type[] elements)
         {
             List<Type> IntermediateList = new List<Type>(array);
             IntermediateList.AddRange(elements);
-            array = IntermediateList.ToArray();
+            return IntermediateList.ToArray();
         }
 
         /// <summary>
@@ -25,6 +25,38 @@ namespace AnotherRTS.Util
                 IntermediateList.Remove(elements[i]);
             }
             array = IntermediateList.ToArray();
+        }
+
+        /// <summary>
+        /// Removes element at specific index
+        /// </summary>
+        public static void RemoveAt<Type>(Type[] array, int index)
+        {
+            List<Type> IntermediateList = new List<Type>();
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i != index)
+                    IntermediateList.Add(array[i]);
+            }
+            array = IntermediateList.ToArray();
+        } 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool CompareSequence<Type>(Type[] a, Type[] b)
+        {
+            if (a.Length != b.Length)
+                return false;
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (!a[i].Equals(b[i]))
+                    return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -59,11 +91,24 @@ namespace AnotherRTS.Util
         {
             for (int i = 0; i < array.Length; i++)
             {
-                // [TODO] check perf .Equals(obj);
                 if (array[i].Equals(value))
                     return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Finds first index of value in array, returns -1 if fails.
+        /// </summary>
+        public static int FindFirstIndex<Type>(Type[] array, Type value)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                // [TODO] check perf .Equals(obj);
+                if (array[i].Equals(value))
+                    return i;
+            }
+            return -1;
         }
     }
 }
