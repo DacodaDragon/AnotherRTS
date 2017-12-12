@@ -1,0 +1,62 @@
+# AnotherRTS fallback key bindings File
+# DaCoda 2017
+# -----------------
+# Requirements:
+#
+# Every control group split by  ---
+# Every control group name must be unique.
+# Every key name must be unique.
+#
+# Warnings:
+# Keys with the same name may cause unwanted behaviour
+# Controlgroups with the same name will cause unwanted behaviour
+name: global
+keys:
+    - name : global up
+      keycodes : [UpArrow]
+      modifiers : []
+    - name : global down
+      keycodes : [DownArrow]
+      modifiers : []
+    - name : global left
+      keycodes : [LeftArrow]
+      modifiers : []
+    - name : global right
+      keycodes : [RightArrow]
+      modifiers : []
+---
+name: units
+keys:
+    - name : unit special 1
+      keycodes : [Z]
+      modifiers : []
+    - name : unit special 2
+      keycodes : [X]
+      modifiers : []
+---
+name: camera
+keys:
+    - name : camera up
+      keycodes : [UpArrow]
+      modifiers : []
+    - name : camera down
+      keycodes : [DownArrow]
+      modifiers : []
+    - name : camera left
+      keycodes : [LeftArrow]
+      modifiers : []
+    - name : camera right
+      keycodes : [RightArrow]
+      modifiers : []
+    - name : camera rotate left
+      keycodes : [LeftArrow]
+      modifiers : [LeftControl]
+    - name : camera rotate right
+      keycodes : [RightArrow]
+      modifiers : [LeftControl]
+    - name : camera zoom in
+      keycodes : [UpArrow]
+      modifiers : [LeftControl]
+    - name : camera zoom out
+      keycodes : [DownArrow]
+      modifiers : [LeftControl]
