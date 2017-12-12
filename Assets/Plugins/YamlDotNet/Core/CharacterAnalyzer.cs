@@ -172,7 +172,6 @@ namespace YamlDotNet.Core
 
         public bool Check(string expectedCharacters, int offset = 0)
         {
-            // Todo: using it this way doesn't break anything, it's not realy wrong...
             Debug.Assert(expectedCharacters.Length > 1, "Use Check(char, int) instead.");
 
             var character = buffer.Peek(offset);

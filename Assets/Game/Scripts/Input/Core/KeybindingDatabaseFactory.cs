@@ -7,6 +7,7 @@ namespace AnotherRTS.Management.RemappableInput
     {
         private int m_IdIndex = 0;
         private Dictionary<string, int> m_nameID = new Dictionary<string, int>();
+        private ModifierKeyRegister m_register = new ModifierKeyRegister();
 
         public KeyBindingDatabase Build(ControlGroupData[] data)
         {
@@ -18,7 +19,7 @@ namespace AnotherRTS.Management.RemappableInput
             {
                 ControlGroups[i] = CreateControlGroup(data[i]);
             }
-            return new KeyBindingDatabase(ControlGroups, m_nameID);
+            return new KeyBindingDatabase(ControlGroups, m_nameID, m_register);
         }
 
         private ControlGroup CreateControlGroup(ControlGroupData group)
@@ -34,7 +35,8 @@ namespace AnotherRTS.Management.RemappableInput
         private Key CreateKey(KeyData key)
         {
             m_nameID.Add(key.name, m_IdIndex);
-            return new Key(m_IdIndex++,key.name, key.keycodes, key.modifiers);
+            m_register.Add(key.modifiers);
+            return new Key(m_IdIndex++,key.name, key.keycodes, key.modifiers, m_register);
         }
     }
 }

@@ -41,7 +41,6 @@ namespace YamlDotNet.Core
             var expectedEvent = parser.Allow<T>();
             if (expectedEvent == null)
             {
-                // TODO: Throw a better exception
                 var @event = parser.Current;
                 throw new YamlException(@event.Start, @event.End, string.Format(CultureInfo.InvariantCulture,
                         "Expected '{0}', got '{1}' (at {2}).", typeof(T).Name, @event.GetType().Name, @event.Start));

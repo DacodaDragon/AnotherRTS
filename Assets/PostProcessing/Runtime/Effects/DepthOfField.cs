@@ -30,8 +30,6 @@ namespace UnityEngine.Rendering.PostProcessing
         public KernelSizeParameter kernelSize = new KernelSizeParameter { value = KernelSize.Medium };
     }
     
-    // TODO: Look into minimum blur amount in the distance, right now it's lerped until a point
-    // TODO: Doesn't play nice with alpha propagation, see if it can be fixed without killing performances
     public sealed class DepthOfFieldRenderer : PostProcessEffectRenderer<DepthOfField>
     {
         enum Pass
@@ -56,7 +54,6 @@ namespace UnityEngine.Rendering.PostProcessing
         int[] m_HistoryPingPong = new int[k_NumEyes];
 
         // Height of the 35mm full-frame format (36mm x 24mm)
-        // TODO: Should be set by a physical camera
         const float k_FilmHeight = 0.024f;
 
         public DepthOfFieldRenderer()
@@ -103,7 +100,6 @@ namespace UnityEngine.Rendering.PostProcessing
             {
                 RenderTexture.ReleaseTemporary(rt);
 
-                // TODO: The CoCCalculation CoCTex uses RenderTextureReadWrite.Linear, why isn't this?
                 rt = context.GetScreenSpaceTemporaryRT(0, format);
                 rt.name = "CoC History, Eye: " + eye + ", ID: " + id;
                 rt.filterMode = FilterMode.Bilinear;

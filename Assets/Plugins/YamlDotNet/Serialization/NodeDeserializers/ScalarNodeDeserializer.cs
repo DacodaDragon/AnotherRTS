@@ -88,7 +88,6 @@ namespace YamlDotNet.Serialization.NodeDeserializers
                         break;
 
                     case TypeCode.DateTime:
-                        // TODO: This is probably incorrect. Use the correct regular expression.
                         value = DateTime.Parse(scalar.Value, CultureInfo.InvariantCulture);
                         break;
 
@@ -201,7 +200,6 @@ namespace YamlDotNet.Serialization.NodeDeserializers
                 {
                     case 2:
                     case 8:
-                        // TODO: how to incorporate the numberFormat?
                         result = Convert.ToUInt64(numberBuilder.ToString(), numberBase);
                         break;
 
@@ -225,7 +223,6 @@ namespace YamlDotNet.Serialization.NodeDeserializers
                 {
                     result *= 60;
 
-                    // TODO: verify that chunks after the first are non-negative and less than 60
                     result += ulong.Parse(chunks[chunkIndex].Replace("_", ""));
                 }
             }

@@ -52,5 +52,13 @@ namespace AnotherRTS.Management.RemappableInput
             }
             return null;
         }
+
+        public void Start()
+        {
+            for (int i = 0; i < m_keys.Length; i++)
+            {
+                m_keys[i].Start();
+            }
+        }
     }
 }
