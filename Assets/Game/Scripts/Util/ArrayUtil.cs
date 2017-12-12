@@ -26,5 +26,16 @@ namespace AnotherRTS.Util
             }
             array = IntermediateList.ToArray();
         }
+
+        /// <summary>
+        /// Fills all elements with a value
+        /// </summary>
+        public static void Fill<Type>(Type[] array, Type value)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = value;
+            }
+        }
     }
 }
