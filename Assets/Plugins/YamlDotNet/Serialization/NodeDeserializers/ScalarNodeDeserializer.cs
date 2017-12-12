@@ -200,6 +200,7 @@ namespace YamlDotNet.Serialization.NodeDeserializers
                 {
                     case 2:
                     case 8:
+                        result = Convert.ToUInt64(numberBuilder.ToString(), numberBase);
                         break;
 
                     case 16:
@@ -223,6 +224,7 @@ namespace YamlDotNet.Serialization.NodeDeserializers
                     result *= 60;
 
                     result += ulong.Parse(chunks[chunkIndex].Replace("_", ""));
+                }
             }
 
             if (isNegative)
