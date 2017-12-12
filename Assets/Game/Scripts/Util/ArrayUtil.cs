@@ -51,5 +51,19 @@ namespace AnotherRTS.Util
             }
             return true;
         }
+
+        /// <summary>
+        /// Checks if any element in array equals value
+        /// </summary>
+        public static bool Contains<Type>(Type[] array, Type value)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                // [TODO] check perf .Equals(obj);
+                if (array[i].Equals(value))
+                    return true;
+            }
+            return false;
+        }
     }
 }
