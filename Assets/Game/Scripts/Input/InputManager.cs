@@ -3,7 +3,7 @@
 using AnotherRTS.Management.RemappableInput.IO;
 namespace AnotherRTS.Management.RemappableInput
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : DDOLSingleton<InputManager>
     {
         [SerializeField]
         TextAsset asset;
