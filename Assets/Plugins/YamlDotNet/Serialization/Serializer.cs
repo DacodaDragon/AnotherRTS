@@ -189,7 +189,6 @@ namespace YamlDotNet.Serialization
         /// To customize the bahavior of the serializer, use <see cref="SerializerBuilder" />.
         /// </remarks>
         public Serializer()
-        // TODO: When the backwards compatibility is dropped, uncomment the following line and remove the body of this constructor.
         //: this(new SerializerBuilder().BuildSerializerParams())
         {
             backwardsCompatibleConfiguration = new BackwardsCompatibleConfiguration(SerializationOptions.None, null, null);

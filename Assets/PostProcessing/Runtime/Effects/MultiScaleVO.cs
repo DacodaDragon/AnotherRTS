@@ -3,7 +3,6 @@ using System;
 namespace UnityEngine.Rendering.PostProcessing
 {
     // Multi-scale volumetric obscurance
-    // TODO: Fix VR support
 
 #if UNITY_2017_1_OR_NEWER
     [Serializable]

@@ -30,7 +30,6 @@ namespace YamlDotNet.Core
     [Serializable]
     public class InsertionQueue<T>
     {
-        // TODO: Use a more efficient data structure
 
         private readonly IList<T> items = new List<T>();
 

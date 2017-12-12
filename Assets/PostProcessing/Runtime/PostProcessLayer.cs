@@ -11,7 +11,6 @@ namespace UnityEngine.Rendering.PostProcessing
     using XRSettings = UnityEngine.VR.VRSettings;
 #endif
 
-    // TODO: XMLDoc everything (?)
     [DisallowMultipleComponent, ExecuteInEditMode, ImageEffectAllowedInSceneView]
     [AddComponentMenu("Rendering/Post-process Layer", 1000)]
     [RequireComponent(typeof(Camera))]
@@ -305,7 +304,6 @@ namespace UnityEngine.Rendering.PostProcessing
             context.camera = m_Camera;
             context.sourceFormat = sourceFormat;
 
-            // TODO: Investigate retaining command buffers on XR multi-pass right eye
             m_LegacyCmdBufferBeforeReflections.Clear();
             m_LegacyCmdBufferBeforeLighting.Clear();
             m_LegacyCmdBufferOpaque.Clear();
@@ -574,7 +572,6 @@ namespace UnityEngine.Rendering.PostProcessing
                 context.command.EndSample("VolumeBlending");
                 m_TargetPool.Reset();
 
-                // TODO: fix me once VR support is in SRP
                 // Needed in SRP so that _RenderViewportScaleFactor isn't 0
                 if (RuntimeUtilities.scriptableRenderPipelineActive)
                     Shader.SetGlobalFloat(ShaderIDs.RenderViewportScaleFactor, 1f);

@@ -104,7 +104,6 @@ namespace UnityEngine.Rendering.PostProcessing
         // Current camera height in pixels
         public int height { get; private set; }
 
-        // TODO: Change w/h name to texture w/h in order to make
         // size usages explicit
 
 #if UNITY_2017_2_OR_NEWER

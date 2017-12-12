@@ -176,7 +176,6 @@ namespace YamlDotNet.Core
                 finally
                 {
                     // Only dequeue after calling state_machine because it checks how many events are in the queue.
-                    // Todo: well, move into StateMachine() then
                     events.Dequeue();
                 }
             }
@@ -1311,7 +1310,6 @@ namespace YamlDotNet.Core
             }
         }
 
-        // Todo: isn't this what CharacterAnalyser is for?
         private static bool IsSpace(char character)
         {
             return character == ' ';
@@ -1759,7 +1757,6 @@ namespace YamlDotNet.Core
                 return false;
             }
 
-            // Todo: must be something better than this FakeList
             var eventList = new FakeList<ParsingEvent>(events);
             return eventList[0] is SequenceStart && eventList[1] is SequenceEnd;
         }
@@ -1771,7 +1768,6 @@ namespace YamlDotNet.Core
                 return false;
             }
 
-            // Todo: must be something better than this FakeList
             var eventList = new FakeList<ParsingEvent>(events);
             return eventList[0] is MappingStart && eventList[1] is MappingEnd;
         }

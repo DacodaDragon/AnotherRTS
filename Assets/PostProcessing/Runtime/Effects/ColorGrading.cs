@@ -29,7 +29,6 @@ namespace UnityEngine.Rendering.PostProcessing
     [Serializable]
     public sealed class TonemapperParameter : ParameterOverride<Tonemapper> {}
 
-    // TODO: Could use some refactoring, too much duplicated code here
     [Serializable]
     [PostProcess(typeof(ColorGradingRenderer), "Unity/Color Grading")]
     public sealed class ColorGrading : PostProcessEffectSettings
@@ -205,7 +204,6 @@ namespace UnityEngine.Rendering.PostProcessing
 
         // HDR color pipeline is rendered to a 3D lut; it requires Texture3D & compute shaders
         // support - Desktop / Consoles / Some high-end mobiles
-        // TODO: Use ShaderIDs for compute once the compatible APIs go in
         void RenderHDRPipeline3D(PostProcessRenderContext context)
         {
             // Unfortunately because AnimationCurve doesn't implement GetHashCode and we don't have
