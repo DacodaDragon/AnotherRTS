@@ -15,13 +15,13 @@ namespace AnotherRTS.Management.RemappableInput
         private int m_frameRelease = 0;
         private bool m_held = false;
 
-        public int       ID        { get { return m_id;   } }
-        public string    Name      { get { return m_name; } }
-        public KeyCode[] Keys      { get { return m_keys; }      set { m_keys = value; } }
-        public KeyCode[] Modifiers { get { return m_modifiers; } set { m_keys = value; } }
-        public bool IsPressed      { get { return (m_framePress == Time.frameCount); } }
-        public bool IsReleased     { get { return (m_frameRelease == Time.frameCount); } }
-        public bool IsHeld         { get { return m_held; } }
+        public int       ID         { get { return m_id;   } }
+        public string    Name       { get { return m_name; } }
+        public KeyCode[] Keys       { get { return m_keys; }      set { m_keys = value; } }
+        public KeyCode[] Modifiers  { get { return m_modifiers; } set { m_keys = value; } }
+        public bool      IsPressed  { get { return (m_framePress == Time.frameCount); } }
+        public bool      IsReleased { get { return (m_frameRelease == Time.frameCount); } }
+        public bool      IsHeld     { get { return m_held; } }
 
         public Key(int id, string name, KeyCode[] keys, KeyCode[] modifiers)
         {
@@ -52,17 +52,18 @@ namespace AnotherRTS.Management.RemappableInput
                 }
             }
 
-            if (m_held)
-                return;
-
             for (int i = 0; i < Keys.Length; i++)
             {
                 if (Keys[i] == KeyCode)
                 {
-                    m_framePress = Time.frameCount;
+                    m_keysPressed[i] = true;
+
+                    if (!m_held)
+                        m_framePress = Time.frameCount;
 
                     if (ArrayUtil.AllEqual(m_modifiersPressed,true))
                         m_held = true;
+
                     return;
                 }
             }
@@ -83,18 +84,15 @@ namespace AnotherRTS.Management.RemappableInput
                 }
             }
 
-            if (!m_held)
-                return;
-
             for (int i = 0; i < Keys.Length; i++)
             {
                 if (Keys[i] == KeyCode)
                 {
                     m_keysPressed[i] = false;
-                    if (ArrayUtil.Contains(m_keysPressed,true) &&
-                        ArrayUtil.AllEqual(m_modifiersPressed,true))
+                    if (!ArrayUtil.Contains(m_keysPressed,true) || !ArrayUtil.AllEqual(m_modifiersPressed,true))
                     {
-                        m_frameRelease = Time.frameCount;
+                        if (m_held)
+                            m_frameRelease = Time.frameCount;
                         m_held = false;
                     }
                     return;
