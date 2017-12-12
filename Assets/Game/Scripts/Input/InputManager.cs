@@ -14,6 +14,9 @@ namespace AnotherRTS.Management.RemappableInput
             YamlControlSchemeReader reader = new YamlControlSchemeReader();
             KeybindingDatabaseFactory factory = new KeybindingDatabaseFactory();
             m_database = factory.Build(reader.FromString(asset.text));
+
+            // Second init phase
+            m_database.Start();
         }
 
         private void OnGUI()

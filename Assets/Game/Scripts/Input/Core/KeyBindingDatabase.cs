@@ -5,15 +5,17 @@ namespace AnotherRTS.Management.RemappableInput
 {
     public class KeyBindingDatabase
     {
+        ModifierKeyRegister m_ModifierRegister;
         Dictionary<string, int> m_NameIDPairs;
         Dictionary<int, ControlGroup> m_GroupDict;
         ControlGroup[] m_Groups;
 
-        public KeyBindingDatabase(ControlGroup[] groups, Dictionary<string,int> nameId)
+        public KeyBindingDatabase(ControlGroup[] groups, Dictionary<string,int> nameId, ModifierKeyRegister register)
         {
             m_Groups = groups;
             m_NameIDPairs = nameId;
             SetControlGroups(groups);
+            m_ModifierRegister = register;
         }
 
         private void SetControlGroups(ControlGroup[] groups)
@@ -43,6 +45,9 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void KeyUp(KeyCode keycode)
         {
+            if (m_ModifierRegister.KeyUp(keycode))
+                return;
+                
             for (int i = 0; i < m_Groups.Length; i++)
             {
                 m_Groups[i].KeyUp(keycode);
@@ -51,6 +56,9 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void KeyDown(KeyCode keycode)
         {
+            if (m_ModifierRegister.KeyDown(keycode))
+                return;
+
             for (int i = 0; i < m_Groups.Length; i++)
             {
                 m_Groups[i].KeyDown(keycode);
@@ -78,6 +86,14 @@ namespace AnotherRTS.Management.RemappableInput
             if (!m_NameIDPairs.TryGetValue(name, out id))
                 throw new System.Exception("Keybinding \"" + name + "\" doesn't exist!");
             return id;
+        }
+
+        public void Start()
+        {
+            for (int i = 0; i < m_Groups.Length; i++)
+            {
+                m_Groups[i].Start();
+            }
         }
     }
 }
