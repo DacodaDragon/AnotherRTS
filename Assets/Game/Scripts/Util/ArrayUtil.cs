@@ -37,5 +37,19 @@ namespace AnotherRTS.Util
                 array[i] = value;
             }
         }
+
+        /// <summary>
+        /// Checks if all elements in array equal the same value
+        /// </summary>
+        public static bool AllEqual<Type>(Type[] array, Type value)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                // [TODO] check perf .Equals(obj);
+                if (!array[i].Equals(value))
+                    return false;
+            }
+            return true;
+        }
     }
 }
