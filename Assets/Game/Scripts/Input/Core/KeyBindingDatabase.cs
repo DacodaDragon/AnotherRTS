@@ -5,10 +5,13 @@ namespace AnotherRTS.Management.RemappableInput
 {
     public class KeyBindingDatabase
     {
-        ModifierKeyRegister m_ModifierRegister;
-        Dictionary<string, int> m_NameIDPairs;
-        Dictionary<int, ControlGroup> m_GroupDict;
-        ControlGroup[] m_Groups;
+        private ModifierKeyRegister m_ModifierRegister;
+        private Dictionary<string, int> m_NameIDPairs;
+        private Dictionary<int, ControlGroup> m_GroupDict;
+        private ControlGroup[] m_Groups;
+        private string[] m_KeyNames;
+
+        public string[] KeyNames { get { return m_KeyNames; } }
 
         public KeyBindingDatabase(ControlGroup[] groups, Dictionary<string,int> nameId, ModifierKeyRegister register)
         {
@@ -90,10 +93,24 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void Start()
         {
+            m_KeyNames = GetAllKeyNames();
             for (int i = 0; i < m_Groups.Length; i++)
             {
                 m_Groups[i].Start();
             }
+        }
+
+        private string[] GetAllKeyNames()
+        {
+            List<string> keynames = new List<string>();
+            for (int i = 0; i < m_Groups.Length; i++)
+            {
+                for (int j = 0; j < m_Groups[i].Keys.Length; j++)
+                {
+                    keynames.Add(m_Groups[i].Keys[j].Name);
+                }
+            }
+            return keynames.ToArray();
         }
     }
 }
