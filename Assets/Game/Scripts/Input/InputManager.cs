@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using AnotherRTS.Management.RemappableInput.IO;
+
 namespace AnotherRTS.Management.RemappableInput
 {
     public class InputManager : DDOLSingleton<InputManager>
@@ -8,6 +9,9 @@ namespace AnotherRTS.Management.RemappableInput
         [SerializeField]
         TextAsset asset;
         KeyBindingDatabase m_database;
+
+
+        public string[] KeyNames { get { return m_database.KeyNames; } }
 
         public void Awake()
         {
