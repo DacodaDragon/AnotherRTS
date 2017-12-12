@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using AnotherRTS.Util;
 
 namespace AnotherRTS.Management.RemappableInput
 {
@@ -8,6 +9,8 @@ namespace AnotherRTS.Management.RemappableInput
         private string m_name;
         private KeyCode[] m_keys;
         private KeyCode[] m_modifiers;
+        private bool[] m_keysPressed;
+        private bool[] m_modifiersPressed;
         private int m_framePress = 0;
         private int m_frameRelease = 0;
         private bool m_held = false;
@@ -26,11 +29,29 @@ namespace AnotherRTS.Management.RemappableInput
             m_name = name;
             m_keys = keys;
             m_modifiers = modifiers;
+
+            m_keysPressed = new bool[keys.Length];
+            m_modifiersPressed = new bool[modifiers.Length];
+
+            // Init all keys to not be pressed
+            ArrayUtil.Fill(m_keysPressed, false);
+            ArrayUtil.Fill(m_modifiersPressed, false);
         }
 
         // [TODO] Fix Input to update when keys are released. 
         public void OnKeyDown(KeyCode KeyCode)
         {
+            for (int i = 0; i < m_modifiers.Length; i++)
+            {
+                if (m_modifiers[i] == KeyCode)
+                {
+                    m_modifiersPressed[i] = true;
+                    m_held = (ArrayUtil.Contains(m_keysPressed, true)
+                             && ArrayUtil.AllEqual(m_modifiersPressed, true));
+                    return;
+                }
+            }
+
             if (m_held)
                 return;
 
@@ -39,7 +60,9 @@ namespace AnotherRTS.Management.RemappableInput
                 if (Keys[i] == KeyCode)
                 {
                     m_framePress = Time.frameCount;
-                    m_held = true;
+
+                    if (ArrayUtil.AllEqual(m_modifiersPressed,true))
+                        m_held = true;
                     return;
                 }
             }
@@ -47,6 +70,19 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void OnKeyUp(KeyCode KeyCode)
         {
+            for (int i = 0; i < m_modifiers.Length; i++)
+            {
+                if (m_modifiers[i] == KeyCode)
+                {
+                    // If one of the modifiers dissapear
+                    // we CAN'T be holding the correct
+                    // key combination
+                    m_modifiersPressed[i] = false;
+                    m_held = false;
+                    return;
+                }
+            }
+
             if (!m_held)
                 return;
 
@@ -54,11 +90,23 @@ namespace AnotherRTS.Management.RemappableInput
             {
                 if (Keys[i] == KeyCode)
                 {
-                    m_frameRelease = Time.frameCount;
-                    m_held = false;
+                    m_keysPressed[i] = false;
+                    if (ArrayUtil.Contains(m_keysPressed,true) &&
+                        ArrayUtil.AllEqual(m_modifiersPressed,true))
+                    {
+                        m_frameRelease = Time.frameCount;
+                        m_held = false;
+                    }
                     return;
                 }
             }
+        }
+
+        public void Panic()
+        {
+            ArrayUtil.Fill(m_keysPressed, false);
+            ArrayUtil.Fill(m_modifiersPressed, false);
+            m_held = false;
         }
     }
 }
