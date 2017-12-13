@@ -26,13 +26,30 @@ namespace AnotherRTS.Management.RemappableInput
         private void OnGUI()
         {
             if (Event.current.type == EventType.keyDown)
-            {
                 m_database.KeyDown(Event.current.keyCode);
-            }
 
             if (Event.current.type == EventType.keyUp)
-            {
                 m_database.KeyUp(Event.current.keyCode);
+
+            if (Event.current.type == EventType.mouseDown)
+                m_database.KeyDown(MouseToKey(Event.current.button));
+
+            if (Event.current.type == EventType.mouseUp)
+                m_database.KeyUp(MouseToKey(Event.current.button));
+        }
+
+        private KeyCode MouseToKey(int num)
+        {
+            switch (num)
+            {
+                case 0: return KeyCode.Mouse0;
+                case 1: return KeyCode.Mouse1;
+                case 2: return KeyCode.Mouse2;
+                case 3: return KeyCode.Mouse3;
+                case 4: return KeyCode.Mouse4;
+                case 5: return KeyCode.Mouse5;
+                case 6: return KeyCode.Mouse6;
+                default: return KeyCode.None;
             }
         }
 
