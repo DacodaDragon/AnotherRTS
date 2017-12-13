@@ -48,8 +48,7 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void KeyUp(KeyCode keycode)
         {
-            if (m_ModifierRegister.KeyUp(keycode))
-                return;
+            m_ModifierRegister.KeyUp(keycode);
                 
             for (int i = 0; i < m_Groups.Length; i++)
             {
@@ -59,8 +58,7 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void KeyDown(KeyCode keycode)
         {
-            if (m_ModifierRegister.KeyDown(keycode))
-                return;
+            m_ModifierRegister.KeyDown(keycode);
 
             for (int i = 0; i < m_Groups.Length; i++)
             {
