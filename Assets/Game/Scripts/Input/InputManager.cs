@@ -72,5 +72,10 @@ namespace AnotherRTS.Management.RemappableInput
         {
             return m_database.GetKeyID(name);
         }
+
+        public Key GetInternalKey(int id)
+        {
+            return m_database.GetInteralKey(id);
+        }
     }
 }
