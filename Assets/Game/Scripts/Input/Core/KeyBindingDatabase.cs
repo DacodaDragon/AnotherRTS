@@ -122,5 +122,16 @@ namespace AnotherRTS.Management.RemappableInput
             }
             return keynames.ToArray();
         }
+
+        public Key GetInteralKey(int id)
+        {
+            KeyGroup group = FindContainingGroup(id);
+            for (int i = 0; i < group.Keys.Length; i++)
+            {
+                if (group.Keys[i].ID == id)
+                    return group.Keys[i];
+            }
+            return null;
+        }
     }
 }
