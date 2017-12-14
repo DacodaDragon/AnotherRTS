@@ -13,7 +13,7 @@ namespace AnotherRTS.Management.RemappableInput
 
         public string[] KeyNames { get { return m_KeyNames; } }
 
-        public KeyBindingDatabase(KeyGroup[] groups, Dictionary<string,int> nameId, ModifierKeyRegister register)
+        public KeyBindingDatabase(KeyGroup[] groups, Dictionary<string, int> nameId, ModifierKeyRegister register)
         {
             m_Groups = groups;
             m_NameIDPairs = nameId;
@@ -31,7 +31,7 @@ namespace AnotherRTS.Management.RemappableInput
                 int[] IDs = groups[i].GetAllKeyIDs();
                 for (int j = 0; j < IDs.Length; j++)
                 {
-                    m_GroupDict.Add(IDs[j],groups[i]);
+                    m_GroupDict.Add(IDs[j], groups[i]);
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace AnotherRTS.Management.RemappableInput
         public void KeyUp(KeyCode keycode)
         {
             m_ModifierRegister.KeyUp(keycode);
-                
+
             for (int i = 0; i < m_Groups.Length; i++)
             {
                 m_Groups[i].KeyUp(keycode);
@@ -68,17 +68,29 @@ namespace AnotherRTS.Management.RemappableInput
 
         public bool GetKeyUp(int id)
         {
-            return FindContainingGroup(id).GetKey(id).IsReleased;
+            KeyGroup group = FindContainingGroup(id);
+            if (group.Active)
+                return group.GetKey(id).IsReleased;
+            else return false;
         }
 
         public bool GetKey(int id)
         {
-            return FindContainingGroup(id).GetKey(id).IsHeld;
+
+            KeyGroup group = FindContainingGroup(id);
+            if (group.Active)
+                return group.GetKey(id).IsHeld;
+            else return false;
+
         }
 
         public bool GetKeyDown(int id)
         {
-            return FindContainingGroup(id).GetKey(id).IsPressed;
+            KeyGroup group = FindContainingGroup(id);
+            if (group.Active)
+                return group.GetKey(id).IsPressed;
+            else return false;
+
         }
 
         public int GetKeyID(string name)
