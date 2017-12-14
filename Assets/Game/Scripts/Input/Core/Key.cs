@@ -18,11 +18,28 @@ namespace AnotherRTS.Management.RemappableInput
 
         public int       ID         { get { return m_id;   } }
         public string    Name       { get { return m_name; } }
-        public KeyCode[] Keys       { get { return m_keys; }      set { m_keys = value; } }
-        public KeyCode[] Modifiers  { get { return m_modifiers; } set { m_keys = value; } }
         public bool      IsPressed  { get { return (m_framePress == Time.frameCount); } }
         public bool      IsReleased { get { return (m_frameRelease == Time.frameCount); } }
         public bool      IsHeld     { get { return m_held; } }
+
+        public KeyCode[] Keys {
+            get { return m_keys; }
+            set { m_keys = value; m_keysPressed = new bool[m_keys.Length];
+            }
+        }
+
+        public KeyCode[] Modifiers{
+            get { return m_modifiers; }
+            set
+            {
+                m_modifierRegister.Remove(m_modifiers);
+                m_modifiers = value;
+                m_modifierRegister.Add(m_modifiers);
+                m_modifierChecklist = m_modifierRegister.GetModifierCheckArray(m_modifiers);
+            }
+        }
+
+
 
         public Key(int id, string name, KeyCode[] keys, KeyCode[] modifiers, ModifierKeyRegister register)
         { 
