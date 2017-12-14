@@ -5,7 +5,7 @@ namespace AnotherRTS.Management.RemappableInput
     {
         private string m_name;
         private Key[] m_keys;
-        private bool m_active;
+        private bool m_active = true;
 
         public string Name { get { return m_name; } }
         public Key[] Keys { get { return m_keys; } }
