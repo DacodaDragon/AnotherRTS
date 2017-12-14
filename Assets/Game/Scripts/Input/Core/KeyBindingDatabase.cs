@@ -7,13 +7,13 @@ namespace AnotherRTS.Management.RemappableInput
     {
         private ModifierKeyRegister m_ModifierRegister;
         private Dictionary<string, int> m_NameIDPairs;
-        private Dictionary<int, ControlGroup> m_GroupDict;
-        private ControlGroup[] m_Groups;
+        private Dictionary<int, KeyGroup> m_GroupDict;
+        private KeyGroup[] m_Groups;
         private string[] m_KeyNames;
 
         public string[] KeyNames { get { return m_KeyNames; } }
 
-        public KeyBindingDatabase(ControlGroup[] groups, Dictionary<string,int> nameId, ModifierKeyRegister register)
+        public KeyBindingDatabase(KeyGroup[] groups, Dictionary<string,int> nameId, ModifierKeyRegister register)
         {
             m_Groups = groups;
             m_NameIDPairs = nameId;
@@ -21,9 +21,9 @@ namespace AnotherRTS.Management.RemappableInput
             m_ModifierRegister = register;
         }
 
-        private void SetControlGroups(ControlGroup[] groups)
+        private void SetControlGroups(KeyGroup[] groups)
         {
-            m_GroupDict = new Dictionary<int, ControlGroup>();
+            m_GroupDict = new Dictionary<int, KeyGroup>();
             // Link all key ID's to their respective control groups
             // So we can find them back quickly later.
             for (int i = 0; i < groups.Length; i++)
@@ -36,9 +36,9 @@ namespace AnotherRTS.Management.RemappableInput
             }
         }
 
-        private ControlGroup FindContainingGroup(int id)
+        private KeyGroup FindContainingGroup(int id)
         {
-            ControlGroup group;
+            KeyGroup group;
 
             if (!m_GroupDict.TryGetValue(id, out group))
                 throw new System.Exception("ControlGroup with id: " + id + "not found.");

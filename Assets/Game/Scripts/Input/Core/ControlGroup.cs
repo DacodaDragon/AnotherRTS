@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 namespace AnotherRTS.Management.RemappableInput
 {
-    public class ControlGroup
+    public class KeyGroup
     {
         private string m_name;
         private Key[] m_keys;
@@ -11,7 +11,7 @@ namespace AnotherRTS.Management.RemappableInput
         public Key[] Keys { get { return m_keys; } }
         public bool Active { get { return m_active; } set { m_active = value; } }
 
-        public ControlGroup(string name, Key[] keys)
+        public KeyGroup(string name, Key[] keys)
         {
             m_name = name;
             m_keys = keys;

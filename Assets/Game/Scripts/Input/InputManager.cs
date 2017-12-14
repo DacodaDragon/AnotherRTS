@@ -15,8 +15,8 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void Awake()
         {
-            YamlControlSchemeReader reader = new YamlControlSchemeReader();
-            KeybindingDatabaseFactory factory = new KeybindingDatabaseFactory();
+            YamlKeyBindingReader reader = new YamlKeyBindingReader();
+            KeyBindingFactory factory = new KeyBindingFactory();
             m_database = factory.Build(reader.FromString(asset.text));
 
             // Second init phase

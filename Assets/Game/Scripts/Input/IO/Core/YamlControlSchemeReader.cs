@@ -7,15 +7,15 @@ using UnityEngine;
 
 namespace AnotherRTS.Management.RemappableInput.IO
 {
-    public class YamlControlSchemeReader
+    public class YamlKeyBindingReader
     {
-        public ControlGroupData[] FromString(string content)
+        public KeyGroupData[] FromString(string content)
         {
             StringReader reader = new StringReader(content);
             YamlStream yaml = new YamlStream();
             yaml.Load(reader);
 
-            List<ControlGroupData> controlgroups = new List<ControlGroupData>();
+            List<KeyGroupData> controlgroups = new List<KeyGroupData>();
             for (int i = 0; i < yaml.Documents.Count; i++)
             {
                controlgroups.Add(HandleControlGroup((YamlMappingNode)yaml.Documents[i].RootNode));
@@ -24,11 +24,11 @@ namespace AnotherRTS.Management.RemappableInput.IO
             return controlgroups.ToArray();
         }
 
-        private ControlGroupData HandleControlGroup(YamlMappingNode node)
+        private KeyGroupData HandleControlGroup(YamlMappingNode node)
         {
             string name = (string)node.Children[new YamlScalarNode("name")];
             KeyData[] keys = ReadKeys((YamlSequenceNode)node.Children[new YamlScalarNode("keys")]);
-            return new ControlGroupData(name, keys);
+            return new KeyGroupData(name, keys);
         }
 
         private KeyData[] ReadKeys(YamlSequenceNode node)
