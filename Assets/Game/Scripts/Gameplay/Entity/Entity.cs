@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AnotherRTS.Gameplay.Entity.Modules;
 
-namespace AnotherRTS.Gameplay
+namespace AnotherRTS.Gameplay.Entity
 {
 	public class Entity : MonoBehaviour
 	{
