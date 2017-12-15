@@ -50,9 +50,9 @@ namespace AnotherRTS.Management.RemappableInput
                     }
                     else
                     {
-                        ArrayUtil.RemoveAt(m_modifiers, index);
-                        ArrayUtil.RemoveAt(m_referenceCount, index);
-                        ArrayUtil.RemoveAt(m_pressed, index);
+                        m_modifiers = ArrayUtil.RemoveAt(m_modifiers, index);
+                        m_referenceCount = ArrayUtil.RemoveAt(m_referenceCount, index);
+                        m_pressed = ArrayUtil.RemoveAt(m_pressed, index);
                     }
                     continue;
                 }

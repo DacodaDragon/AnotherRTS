@@ -9,7 +9,7 @@ namespace AnotherRTS.Management.RemappableInput.IO
         TextAsset YamlDocument;
         public void Start()
         {
-            YamlControlSchemeReader s = new YamlControlSchemeReader();
+            YamlKeyBindingReader s = new YamlKeyBindingReader();
             s.FromString(YamlDocument.text);
         }
     }

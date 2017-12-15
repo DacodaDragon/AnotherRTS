@@ -3,18 +3,18 @@ using AnotherRTS.Management.RemappableInput.IO;
 
 namespace AnotherRTS.Management.RemappableInput
 {
-    public class KeybindingDatabaseFactory
+    public class KeyBindingFactory
     {
         private int m_IdIndex = 0;
         private Dictionary<string, int> m_nameID = new Dictionary<string, int>();
         private ModifierKeyRegister m_register = new ModifierKeyRegister();
 
-        public KeyBindingDatabase Build(ControlGroupData[] data)
+        public KeyBindingDatabase Build(KeyGroupData[] data)
         {
             m_nameID.Clear();
             m_IdIndex = 0;
 
-            ControlGroup[] ControlGroups = new ControlGroup[data.Length];
+            KeyGroup[] ControlGroups = new KeyGroup[data.Length];
             for (int i = 0; i < data.Length; i++)
             {
                 ControlGroups[i] = CreateControlGroup(data[i]);
@@ -22,14 +22,14 @@ namespace AnotherRTS.Management.RemappableInput
             return new KeyBindingDatabase(ControlGroups, m_nameID, m_register);
         }
 
-        private ControlGroup CreateControlGroup(ControlGroupData group)
+        private KeyGroup CreateControlGroup(KeyGroupData group)
         {
             Key[] keys = new Key[group.keys.Length];
             for (int i = 0; i < group.keys.Length; i++)
             {
                 keys[i] = CreateKey(group.keys[i]);
             }
-            return new ControlGroup(group.name,keys);
+            return new KeyGroup(group.name,keys);
         }
 
         private Key CreateKey(KeyData key)

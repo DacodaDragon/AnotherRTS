@@ -30,7 +30,7 @@ namespace AnotherRTS.Util
         /// <summary>
         /// Removes element at specific index
         /// </summary>
-        public static void RemoveAt<Type>(Type[] array, int index)
+        public static Type[] RemoveAt<Type>(Type[] array, int index)
         {
             List<Type> IntermediateList = new List<Type>();
 
@@ -39,7 +39,7 @@ namespace AnotherRTS.Util
                 if (i != index)
                     IntermediateList.Add(array[i]);
             }
-            array = IntermediateList.ToArray();
+            return IntermediateList.ToArray();
         } 
 
         /// <summary>

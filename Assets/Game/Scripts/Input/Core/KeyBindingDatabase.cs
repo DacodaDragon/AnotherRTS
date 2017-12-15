@@ -5,12 +5,15 @@ namespace AnotherRTS.Management.RemappableInput
 {
     public class KeyBindingDatabase
     {
-        ModifierKeyRegister m_ModifierRegister;
-        Dictionary<string, int> m_NameIDPairs;
-        Dictionary<int, ControlGroup> m_GroupDict;
-        ControlGroup[] m_Groups;
+        private ModifierKeyRegister m_ModifierRegister;
+        private Dictionary<string, int> m_NameIDPairs;
+        private Dictionary<int, KeyGroup> m_GroupDict;
+        private KeyGroup[] m_Groups;
+        private string[] m_KeyNames;
 
-        public KeyBindingDatabase(ControlGroup[] groups, Dictionary<string,int> nameId, ModifierKeyRegister register)
+        public string[] KeyNames { get { return m_KeyNames; } }
+
+        public KeyBindingDatabase(KeyGroup[] groups, Dictionary<string, int> nameId, ModifierKeyRegister register)
         {
             m_Groups = groups;
             m_NameIDPairs = nameId;
@@ -18,9 +21,9 @@ namespace AnotherRTS.Management.RemappableInput
             m_ModifierRegister = register;
         }
 
-        private void SetControlGroups(ControlGroup[] groups)
+        private void SetControlGroups(KeyGroup[] groups)
         {
-            m_GroupDict = new Dictionary<int, ControlGroup>();
+            m_GroupDict = new Dictionary<int, KeyGroup>();
             // Link all key ID's to their respective control groups
             // So we can find them back quickly later.
             for (int i = 0; i < groups.Length; i++)
@@ -28,14 +31,14 @@ namespace AnotherRTS.Management.RemappableInput
                 int[] IDs = groups[i].GetAllKeyIDs();
                 for (int j = 0; j < IDs.Length; j++)
                 {
-                    m_GroupDict.Add(IDs[j],groups[i]);
+                    m_GroupDict.Add(IDs[j], groups[i]);
                 }
             }
         }
 
-        private ControlGroup FindContainingGroup(int id)
+        private KeyGroup FindContainingGroup(int id)
         {
-            ControlGroup group;
+            KeyGroup group;
 
             if (!m_GroupDict.TryGetValue(id, out group))
                 throw new System.Exception("ControlGroup with id: " + id + "not found.");
@@ -45,9 +48,8 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void KeyUp(KeyCode keycode)
         {
-            if (m_ModifierRegister.KeyUp(keycode))
-                return;
-                
+            m_ModifierRegister.KeyUp(keycode);
+
             for (int i = 0; i < m_Groups.Length; i++)
             {
                 m_Groups[i].KeyUp(keycode);
@@ -56,8 +58,7 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void KeyDown(KeyCode keycode)
         {
-            if (m_ModifierRegister.KeyDown(keycode))
-                return;
+            m_ModifierRegister.KeyDown(keycode);
 
             for (int i = 0; i < m_Groups.Length; i++)
             {
@@ -67,17 +68,29 @@ namespace AnotherRTS.Management.RemappableInput
 
         public bool GetKeyUp(int id)
         {
-            return FindContainingGroup(id).GetKey(id).IsReleased;
+            KeyGroup group = FindContainingGroup(id);
+            if (group.Active)
+                return group.GetKey(id).IsReleased;
+            else return false;
         }
 
         public bool GetKey(int id)
         {
-            return FindContainingGroup(id).GetKey(id).IsHeld;
+
+            KeyGroup group = FindContainingGroup(id);
+            if (group.Active)
+                return group.GetKey(id).IsHeld;
+            else return false;
+
         }
 
         public bool GetKeyDown(int id)
         {
-            return FindContainingGroup(id).GetKey(id).IsPressed;
+            KeyGroup group = FindContainingGroup(id);
+            if (group.Active)
+                return group.GetKey(id).IsPressed;
+            else return false;
+
         }
 
         public int GetKeyID(string name)
@@ -90,10 +103,35 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void Start()
         {
+            m_KeyNames = GetAllKeyNames();
             for (int i = 0; i < m_Groups.Length; i++)
             {
                 m_Groups[i].Start();
             }
+        }
+
+        private string[] GetAllKeyNames()
+        {
+            List<string> keynames = new List<string>();
+            for (int i = 0; i < m_Groups.Length; i++)
+            {
+                for (int j = 0; j < m_Groups[i].Keys.Length; j++)
+                {
+                    keynames.Add(m_Groups[i].Keys[j].Name);
+                }
+            }
+            return keynames.ToArray();
+        }
+
+        public Key GetInteralKey(int id)
+        {
+            KeyGroup group = FindContainingGroup(id);
+            for (int i = 0; i < group.Keys.Length; i++)
+            {
+                if (group.Keys[i].ID == id)
+                    return group.Keys[i];
+            }
+            return null;
         }
     }
 }
