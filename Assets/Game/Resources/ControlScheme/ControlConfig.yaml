@@ -31,6 +31,18 @@ keys:
       keycodes : [Mouse1]
       modifiers : []
 ---
+name: selection
+keys:
+    - name : single select
+      keycodes : [Mouse0]
+      modifiers : []
+    - name : multi select
+      keycodes : [Mouse0]
+      modifiers : [LeftShift]
+    - name : deselect
+      keycodes : [Mouse0]
+      modifiers : []
+---
 name: units
 keys:
     - name : unit special 1
