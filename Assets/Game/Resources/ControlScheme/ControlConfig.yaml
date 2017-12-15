@@ -24,6 +24,12 @@ keys:
     - name : global right
       keycodes : [RightArrow]
       modifiers : []
+    - name : global mouse left
+      keycodes : [Mouse0]
+      modifiers : []
+    - name : global mouse right
+      keycodes : [Mouse1]
+      modifiers : []
 ---
 name: units
 keys:
@@ -33,6 +39,18 @@ keys:
     - name : unit special 2
       keycodes : [X]
       modifiers : []
+    - name : unit move
+      keycodes : [Mouse0]
+      modifiers : []
+    - name : unit move attack
+      keycodes : [Mouse0]
+      modifiers : [LeftControl]
+    - name : unit move sequential
+      keycodes : [Mouse0]
+      modifiers : [LeftShift]
+    - name : unit move sequential attack
+      keycodes : [Mouse0]
+      modifiers : [LeftShift, LeftControl]
 ---
 name: camera
 keys:
