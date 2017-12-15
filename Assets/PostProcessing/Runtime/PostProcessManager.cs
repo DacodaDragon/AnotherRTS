@@ -6,7 +6,6 @@ using UnityEngine.Assertions;
 namespace UnityEngine.Rendering.PostProcessing
 {
     // Singleton used to tracks all existing volumes in the scene
-    // TODO: Deal with 2D volumes !
     public sealed class PostProcessManager
     {
         static PostProcessManager s_Instance;

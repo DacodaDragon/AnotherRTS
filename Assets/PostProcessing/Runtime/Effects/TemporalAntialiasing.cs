@@ -110,7 +110,6 @@ namespace UnityEngine.Rendering.PostProcessing
             camera.useJitteredProjectionMatrixForTransparentRendering = false;
         }
 
-        // TODO: We'll probably need to isolate most of this for SRPs
         public void ConfigureStereoJitteredProjectionMatrices(PostProcessRenderContext context)
         {
 #if  UNITY_2017_3_OR_NEWER
@@ -201,7 +200,6 @@ namespace UnityEngine.Rendering.PostProcessing
             sheet.properties.SetVector(ShaderIDs.FinalBlendParameters, new Vector4(stationaryBlending, motionBlending, kMotionAmplification, 0f));
             sheet.properties.SetTexture(ShaderIDs.HistoryTex, historyRead);
 
-            // TODO: Account for different possible RenderViewportScale value from previous frame...
 
             int pass = context.camera.orthographic ? (int)Pass.SolverNoDilate : (int)Pass.SolverDilate;
             m_Mrt[0] = context.destination;

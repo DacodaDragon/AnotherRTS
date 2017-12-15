@@ -214,7 +214,6 @@ namespace UnityEngine.Rendering.PostProcessing
             cmd.BlitFullscreenTriangle(source, destination);
         }
 
-        // TODO: Generalize the GetTemporaryRT and Blit commands in order to support
         // RT Arrays for Stereo Instancing/MultiView
 
         #endregion
@@ -237,7 +236,6 @@ namespace UnityEngine.Rendering.PostProcessing
         }
 #endif
 
-        // TODO: Check for SPSR support at runtime
         public static bool isSinglePassStereoEnabled
         {
             get
@@ -296,7 +294,6 @@ namespace UnityEngine.Rendering.PostProcessing
         public static bool IsResolvedDepthAvailable(Camera camera)
         {
             // AFAIK resolved depth is only available on D3D11/12 via BuiltinRenderTextureType.ResolvedDepth
-            // TODO: Is there more proper way to determine this? What about SRPs?
             var gtype = SystemInfo.graphicsDeviceType;
             return camera.actualRenderingPath == RenderingPath.DeferredShading &&
                 (gtype == GraphicsDeviceType.Direct3D11 || gtype == GraphicsDeviceType.Direct3D12 || gtype == GraphicsDeviceType.XboxOne);
