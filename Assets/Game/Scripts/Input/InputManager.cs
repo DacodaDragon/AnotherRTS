@@ -23,17 +23,28 @@ namespace AnotherRTS.Management.RemappableInput
             m_database.Start();
         }
 
+        // Shift keys are handled here
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+                m_database.KeyUp(KeyCode.LeftShift);
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+                m_database.KeyDown(KeyCode.LeftShift);
+            if (Input.GetKeyUp(KeyCode.RightShift))
+                m_database.KeyUp(KeyCode.RightShift);
+            if (Input.GetKeyDown(KeyCode.RightShift))
+                m_database.KeyDown(KeyCode.RightShift);
+        }
+        
+        // Rest is handled here
         private void OnGUI()
         {
             if (Event.current.type == EventType.keyDown)
                 m_database.KeyDown(Event.current.keyCode);
-
             if (Event.current.type == EventType.keyUp)
                 m_database.KeyUp(Event.current.keyCode);
-
             if (Event.current.type == EventType.mouseDown)
                 m_database.KeyDown(MouseToKey(Event.current.button));
-
             if (Event.current.type == EventType.mouseUp)
                 m_database.KeyUp(MouseToKey(Event.current.button));
         }
