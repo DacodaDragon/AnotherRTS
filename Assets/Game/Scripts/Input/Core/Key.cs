@@ -24,7 +24,10 @@ namespace AnotherRTS.Management.RemappableInput
 
         public KeyCode[] Keys {
             get { return m_keys; }
-            set { m_keys = value; m_keysPressed = new bool[m_keys.Length];
+            set
+            {
+                m_keys = value; m_keysPressed = new bool[m_keys.Length];
+                Reset();
             }
         }
 
@@ -36,10 +39,17 @@ namespace AnotherRTS.Management.RemappableInput
                 m_modifiers = value;
                 m_modifierRegister.Add(m_modifiers);
                 m_modifierChecklist = m_modifierRegister.GetModifierCheckArray(m_modifiers);
+                Reset();
             }
         }
 
-
+        private void Reset()
+        {
+            m_held = false;
+            m_framePress = 0;
+            m_frameRelease = 0;
+            ArrayUtil.Fill(m_keysPressed, false);
+        }
 
         public Key(int id, string name, KeyCode[] keys, KeyCode[] modifiers, ModifierKeyRegister register)
         { 
