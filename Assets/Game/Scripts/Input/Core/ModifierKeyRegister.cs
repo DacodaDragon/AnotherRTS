@@ -11,7 +11,6 @@ namespace AnotherRTS.Management.RemappableInput
 
         public void Add(params KeyCode[] keys)
         {
-            Debug.Log("Adding series of elements!");
             if (m_modifiers == null)
             {
                 m_modifiers = new KeyCode[0];
@@ -26,13 +25,11 @@ namespace AnotherRTS.Management.RemappableInput
                     m_modifiers = ArrayUtil.AddToArray(m_modifiers, keys[i]);
                     m_referenceCount = ArrayUtil.AddToArray(m_referenceCount, 1);
                     m_pressed = ArrayUtil.AddToArray(m_pressed, false);
-                    Debug.Log("Added An element! Length is: " + m_modifiers.Length); 
                 }
                 else
                 {
                     int index = ArrayUtil.FindFirstIndex(m_modifiers, keys[i]);
                     ++m_referenceCount[index];
-                    Debug.Log("Counted An element!");
                 }
             }
         }
