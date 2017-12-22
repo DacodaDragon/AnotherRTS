@@ -5,6 +5,10 @@ namespace AnotherRTS.Management.RemappableInput
 {
     public class KeyBindingDatabase
     {
+        private const string ERR_001 = "No controlgroup containing keybinding [{0}] exists!";
+        private const string ERR_002 = "Method [{0}] did not subscribe to [{1}] because the keybinding doesn't exist";
+        private const string ERR_003 = "Keybinding with name [{0}] wasn't found";
+
         private ModifierKeyRegister m_ModifierRegister;
         private Dictionary<string, int> m_NameIDPairs;
         private Dictionary<int, KeyGroup> m_GroupDict;
@@ -41,7 +45,7 @@ namespace AnotherRTS.Management.RemappableInput
             KeyGroup group;
 
             if (!m_GroupDict.TryGetValue(id, out group))
-                throw new System.Exception("ControlGroup with id: " + id + "not found.");
+                throw new System.Exception(string.Format(ERR_001,id));
 
             return group;
         }
@@ -97,7 +101,7 @@ namespace AnotherRTS.Management.RemappableInput
         {
             int id;
             if (!m_NameIDPairs.TryGetValue(name, out id))
-                throw new System.Exception("Keybinding \"" + name + "\" doesn't exist!");
+                throw new System.Exception(string.Format(ERR_003,name));
             return id;
         }
 
@@ -132,6 +136,31 @@ namespace AnotherRTS.Management.RemappableInput
                     return group.Keys[i];
             }
             return null;
+        }
+
+        public Key GetInteralKey(string name)
+        {
+            return GetInteralKey(GetKeyID(name));
+        }
+
+        public void SubscribeKeyUp(string name, VoidDelegate method)
+        {
+            GetInteralKey(name).OnKeyUp += method;
+        }
+
+        public void SubscribeKeyDown(string name, VoidDelegate method)
+        {
+            GetInteralKey(name).OnKeyDown += method;
+        }
+
+        public void UnsubscribeKeyUp(string name, VoidDelegate method)
+        {
+            GetInteralKey(name).OnKeyUp -= method;
+        }
+
+        public void UnsubscribeKeyDown(string name, VoidDelegate method)
+        {
+            GetInteralKey(name).OnKeyDown -= method;
         }
     }
 }
