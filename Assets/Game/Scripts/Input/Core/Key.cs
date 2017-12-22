@@ -125,7 +125,7 @@ namespace AnotherRTS.Management.RemappableInput
         }
 
         // [TODO] Fix Input to update when keys are released. 
-        public void OnKeyDown(KeyCode KeyCode)
+        public void KeyUp(KeyCode KeyCode)
         {
             if (m_modifierRegister.IsValidModifier(KeyCode))
             {
@@ -144,7 +144,7 @@ namespace AnotherRTS.Management.RemappableInput
             }
         }
 
-        public void OnKeyUp(KeyCode KeyCode)
+        public void KeyDown(KeyCode KeyCode)
         {
             if (m_modifierRegister.IsValidModifier(KeyCode))
             {

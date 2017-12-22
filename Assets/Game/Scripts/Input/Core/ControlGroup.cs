@@ -31,7 +31,7 @@ namespace AnotherRTS.Management.RemappableInput
         {
             for (int i = 0; i < m_keys.Length; i++)
             {
-                m_keys[i].OnKeyUp(key);
+                m_keys[i].KeyDown(key);
             }
         }
 
@@ -39,7 +39,7 @@ namespace AnotherRTS.Management.RemappableInput
         {
             for (int i = 0; i < m_keys.Length; i++)
             {
-                m_keys[i].OnKeyDown(key);
+                m_keys[i].KeyUp(key);
             }
         }
 
