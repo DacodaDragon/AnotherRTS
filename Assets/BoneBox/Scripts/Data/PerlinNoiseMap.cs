@@ -1,31 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace AnotherRTS.Util
+namespace BoneBox.Data
 {
 	[System.Serializable]
 	public struct PerlinNoiseMapData
 	{
-		[SerializeField]
-		private int m_Width;
-		public int Width { get { return m_Width; } set { m_Width = value; } }
+		#region Private Fields
 
-		[SerializeField]
-		private int m_Height;
+		[SerializeField] private int m_Height;
+		[SerializeField] private float m_Scale;
+		[SerializeField] private int m_Width;
+		[SerializeField] private float m_XOrg;
+		[SerializeField] private float m_YOrg;
+
+		#endregion
+
+		#region Properties
+
 		public int Height { get { return m_Height; } set { m_Height = value; } }
-
-		[SerializeField]
-		private float m_XOrg;
+		public float Scale { get { return m_Scale; } set { m_Scale = value; } }
+		public int Width { get { return m_Width; } set { m_Width = value; } }
 		public float XOrigin { get { return m_XOrg; } set { m_XOrg = value; } }
-
-		[SerializeField]
-		private float m_YOrg;
 		public float YOrigin { get { return m_YOrg; } set { m_YOrg = value; } }
 
-		[SerializeField]
-		private float m_Scale;
-		public float Scale { get { return m_Scale; } set { m_Scale = value; } }
+		#endregion
 
 		public PerlinNoiseMapData(int width, int height, float xOrigin, float yOrigin, float scale = 1.0f)
 		{
@@ -40,9 +38,9 @@ namespace AnotherRTS.Util
 	public class PerlinNoiseMap
 	{
 		private PerlinNoiseMapData m_Data;
-		public PerlinNoiseMapData Data { get { return m_Data; } }
-
 		private float[,] m_Map;
+
+		public PerlinNoiseMapData Data { get { return m_Data; } }
 		public float[,] GrayScaleMap { get { return m_Map; } }
 
 		public PerlinNoiseMap(int width, int height, float xOrg, float yOrg, float scale = 1.0f)
@@ -55,6 +53,21 @@ namespace AnotherRTS.Util
 			Remap(data);
 		}
 
+		#region Public Methods
+
+		/// <summary>
+		/// Returns the float between 0 and 1 represented by the x and y position.
+		/// </summary>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <returns></returns>
+		public float GetNormalValue(int x, int y)
+		{
+			float xCoord = m_Data.XOrigin + ((float) x / m_Data.Width * m_Data.Scale);
+			float yCoord = m_Data.YOrigin + ((float) y / m_Data.Height * m_Data.Scale);
+			return Mathf.PerlinNoise(xCoord, yCoord);
+		}
+
 		/// <summary>
 		/// Remaps the normal values according to the current data. Call this function after you changed the current data.
 		/// </summary>
@@ -62,8 +75,10 @@ namespace AnotherRTS.Util
 		{
 			m_Map = new float[m_Data.Width, m_Data.Height];
 
-			for (int y = 0; y < m_Data.Height; y++) {
-				for (int x = 0; x < m_Data.Width; x++) {
+			for (int y = 0; y < m_Data.Height; y++)
+			{
+				for (int x = 0; x < m_Data.Width; x++)
+				{
 					m_Map[x, y] = GetNormalValue(x, y);
 				}
 			}
@@ -80,19 +95,6 @@ namespace AnotherRTS.Util
 		}
 
 		/// <summary>
-		/// Returns the float between 0 and 1 represented by the x and y position.
-		/// </summary>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		/// <returns></returns>
-		public float GetNormalValue(int x, int y)
-		{
-			float xCoord = m_Data.XOrigin + ((float) x / m_Data.Width * m_Data.Scale);
-			float yCoord = m_Data.YOrigin + ((float) y / m_Data.Height * m_Data.Scale);
-			return Mathf.PerlinNoise(xCoord, yCoord);
-		}
-
-		/// <summary>
 		/// Returns a new Texture2D containing the noisemap as a grayscale image.
 		/// </summary>
 		/// <returns></returns>
@@ -101,8 +103,10 @@ namespace AnotherRTS.Util
 			Texture2D texture = new Texture2D(m_Data.Width, m_Data.Height);
 			Color[] pixels = new Color[m_Data.Width * m_Data.Height];
 
-			for (int y = 0; y < texture.height; y++) {
-				for (int x = 0; x < texture.width; x++) {
+			for (int y = 0; y < texture.height; y++)
+			{
+				for (int x = 0; x < texture.width; x++)
+				{
 					float sample = m_Map[x, y];
 					pixels[(y * texture.width + x)] = new Color(sample, sample, sample);
 				}
@@ -113,5 +117,7 @@ namespace AnotherRTS.Util
 
 			return texture;
 		}
+
+		#endregion
 	}
 }
