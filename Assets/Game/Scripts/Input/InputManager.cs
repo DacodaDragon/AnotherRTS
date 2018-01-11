@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+using BoneBox.Core;
+
 using AnotherRTS.Management.RemappableInput.IO;
 
 namespace AnotherRTS.Management.RemappableInput
@@ -9,12 +11,13 @@ namespace AnotherRTS.Management.RemappableInput
         [SerializeField]
         TextAsset asset;
         KeyBindingDatabase m_database;
-
-
+		
         public string[] KeyNames { get { return m_database.KeyNames; } }
 
-        public void Awake()
+        public new void Awake()
         {
+			base.Awake();
+
             YamlKeyBindingReader reader = new YamlKeyBindingReader();
             KeyBindingFactory factory = new KeyBindingFactory();
             m_database = factory.Build(reader.FromString(asset.text));

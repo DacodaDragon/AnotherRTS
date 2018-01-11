@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 using UCamera = UnityEngine.Camera;
+
+using BoneBox.Core;
+using Logger = BoneBox.Debug.Logger;
+
 using AnotherRTS.Management.RemappableInput;
-using Logger = AnotherRTS.Util.Logger;
 using AnotherRTS.Gameplay.Entity;
 
 namespace AnotherRTS.Gameplay
 {
 	public class Selector : Singleton<Selector>
 	{
-		private Logger m_Logger;
 		private UCamera m_Camera;
 		private InputManager m_InputManager;
 		private int m_SingleSelectKey;
@@ -23,7 +26,6 @@ namespace AnotherRTS.Gameplay
 		private new void Awake()
 		{
 			base.Awake();
-			m_Logger = new Logger(this, Logger.GREEN);
 			m_SelectedEntities = new List<ISelectable>();
 		}
 
@@ -41,12 +43,15 @@ namespace AnotherRTS.Gameplay
 			RaycastHit hitInfo;
 			bool hitSuccess = Physics.Raycast(m_Camera.ScreenPointToRay(mousePosition), out hitInfo, m_Camera.farClipPlane, m_SelectionLayers);
 
-			if (hitSuccess) {
+			if (hitSuccess)
+			{
 				ISelectable selectable = hitInfo.collider.GetComponent<ISelectable>();
-				if (selectable != null) {
-					if (!m_SelectedEntities.Contains(selectable)) {
+				if (selectable != null)
+				{
+					if (!m_SelectedEntities.Contains(selectable))
+					{
 						m_SelectedEntities.Add(selectable);
-						m_Logger.Log($"Selected {selectable.ToString()}");
+						Logger.Log(this, $"Selected {selectable.ToString()}");
 					}
 				}
 			}
@@ -55,17 +60,19 @@ namespace AnotherRTS.Gameplay
 		public void DeselectAll()
 		{
 			m_SelectedEntities.Clear();
-			m_Logger.Log("Deselected all");
+			Logger.Log(this, "Deselected all");
 		}
 
 		private void Update()
 		{
-			if (m_InputManager.GetKeyUp(m_SingleSelectKey)) {
+			if (m_InputManager.GetKeyUp(m_SingleSelectKey))
+			{
 				DeselectAll();
 				TrySelect();
 			}
 
-			if (m_InputManager.GetKeyUp(m_MultiSelectKey)) {
+			if (m_InputManager.GetKeyUp(m_MultiSelectKey))
+			{
 				TrySelect();
 			}
 		}
