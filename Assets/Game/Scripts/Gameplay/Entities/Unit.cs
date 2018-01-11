@@ -1,5 +1,5 @@
 ﻿
-namespace AnotherRTS.Gameplay.Entity.Unit
+namespace AnotherRTS.Gameplay.Entities
 {
 	public class Unit : Entity, ISelectable
 	{

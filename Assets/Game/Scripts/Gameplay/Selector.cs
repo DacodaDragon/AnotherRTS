@@ -7,7 +7,7 @@ using BoneBox.Core;
 using Logger = BoneBox.Debug.Logger;
 
 using AnotherRTS.Management.RemappableInput;
-using AnotherRTS.Gameplay.Entity;
+using AnotherRTS.Gameplay.Entities;
 
 namespace AnotherRTS.Gameplay
 {

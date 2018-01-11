@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AnotherRTS.Gameplay.Entity
+namespace AnotherRTS.Gameplay.Entities
 {
 	public class Entity : MonoBehaviour
 	{
