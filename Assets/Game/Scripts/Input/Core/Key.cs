@@ -3,24 +3,44 @@ using AnotherRTS.Util;
 
 namespace AnotherRTS.Management.RemappableInput
 {
+    public delegate void VoidDelegate();
     public class Key
     {
         private int m_id;
-        private string m_name;
+        private int m_framePress = 0;
+        private int m_frameRelease = 0;
+        private bool m_held = false;
         private KeyCode[] m_keys;
         private KeyCode[] m_modifiers;
         private bool[] m_keysPressed;
         private bool[] m_modifierChecklist;
-        private int m_framePress = 0;
-        private int m_frameRelease = 0;
-        private bool m_held = false;
+        private string m_name;
+
         private ModifierKeyRegister m_modifierRegister;
 
-        public int       ID         { get { return m_id;   } }
-        public string    Name       { get { return m_name; } }
-        public bool      IsPressed  { get { return (m_framePress == Time.frameCount); } }
-        public bool      IsReleased { get { return (m_frameRelease == Time.frameCount); } }
-        public bool      IsHeld     { get { return m_held; } }
+        private event VoidDelegate m_KeyUpEvent;
+        private event VoidDelegate m_KeyDownEvent;
+
+        // Propperties
+        public int ID { get { return m_id; } }
+
+        public string Name { get { return m_name; } }
+
+        public bool IsPressed  { get { return (m_framePress == Time.frameCount); } }
+        public bool IsReleased { get { return (m_frameRelease == Time.frameCount); } }
+        public bool IsHeld     { get { return m_held; } }
+
+        public event VoidDelegate OnKeyUp
+        {
+            add    { m_KeyUpEvent += value; }
+            remove { m_KeyUpEvent -= value; }
+        }
+
+        public event VoidDelegate OnKeyDown
+        {
+            add    { m_KeyDownEvent += value; }
+            remove { m_KeyDownEvent -= value; }
+        }
 
         public KeyCode[] Keys {
             get { return m_keys; }
@@ -89,6 +109,7 @@ namespace AnotherRTS.Management.RemappableInput
             if (m_held)
                 return;
 
+            m_KeyDownEvent?.Invoke();
             m_framePress = Time.frameCount;
             m_held = true;
         }
@@ -98,12 +119,13 @@ namespace AnotherRTS.Management.RemappableInput
             if (!m_held)
                 return;
 
+            m_KeyUpEvent?.Invoke();
             m_frameRelease = Time.frameCount;
             m_held = false;
         }
 
         // [TODO] Fix Input to update when keys are released. 
-        public void OnKeyDown(KeyCode KeyCode)
+        public void KeyUp(KeyCode KeyCode)
         {
             if (m_modifierRegister.IsValidModifier(KeyCode))
             {
@@ -116,15 +138,13 @@ namespace AnotherRTS.Management.RemappableInput
                 if (Keys[i] == KeyCode)
                 {
                     m_keysPressed[i] = true;
-
                     UpdateKey();
-
                     return;
                 }
             }
         }
 
-        public void OnKeyUp(KeyCode KeyCode)
+        public void KeyDown(KeyCode KeyCode)
         {
             if (m_modifierRegister.IsValidModifier(KeyCode))
             {
@@ -137,9 +157,7 @@ namespace AnotherRTS.Management.RemappableInput
                 if (Keys[i] == KeyCode)
                 {
                     m_keysPressed[i] = false;
-
                     UpdateKey();
-
                     return;
                 }
             }

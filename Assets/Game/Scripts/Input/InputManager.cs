@@ -64,6 +64,9 @@ namespace AnotherRTS.Management.RemappableInput
             }
         }
 
+
+        #region KeyBinding Database wrapper
+
         public bool GetKeyUp(int id)
         {
             return m_database.GetKeyUp(id);
@@ -88,5 +91,29 @@ namespace AnotherRTS.Management.RemappableInput
         {
             return m_database.GetInteralKey(id);
         }
+
+        public void SubscribeKeyUp(string name, VoidDelegate method)
+        {
+            m_database.SubscribeKeyUp(name, method);
+        }
+
+        public void SubscribeKeyDown(string name, VoidDelegate method)
+        {
+            m_database.SubscribeKeyDown(name, method);
+
+        }
+
+        public void UnsubscribeKeyUp(string name, VoidDelegate method)
+        {
+            m_database.SubscribeKeyUp(name, method);
+
+        }
+
+        public void UnsubscribeKeyDown(string name, VoidDelegate method)
+        {
+            m_database.SubscribeKeyUp(name, method);
+
+        }
+        #endregion
     }
 }
