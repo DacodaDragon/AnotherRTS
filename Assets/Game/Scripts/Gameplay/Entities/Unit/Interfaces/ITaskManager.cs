@@ -2,7 +2,7 @@
 
 namespace AnotherRTS.Gameplay.Entities
 {
-    public interface ITaskable<context>
+    public interface ITaskManager<context>
     {
         void TaskIsCompatible(params ITask<context>[] Tasks);
         void TaskIsCompatible(params ETaskRequirement[] Requirements);

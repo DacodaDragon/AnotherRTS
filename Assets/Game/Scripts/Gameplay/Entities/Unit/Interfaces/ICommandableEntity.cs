@@ -4,7 +4,7 @@ namespace AnotherRTS.Gameplay.Entities
 {
     public interface ICommandableEntity<Context>
     {
-        ITaskable<Context> TaskManager { get; }
+        ITaskManager<Context> TaskManager { get; }
     }
 }
 
