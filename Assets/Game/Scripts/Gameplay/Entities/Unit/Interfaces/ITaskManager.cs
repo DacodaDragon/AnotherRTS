@@ -6,6 +6,7 @@ namespace AnotherRTS.Gameplay.Entities
     {
         bool TaskIsCompatible(params ITask<context>[] Tasks);
         bool TaskIsCompatible(params ETaskRequirement[] Requirements);
+        bool SetNewTaskRequirements(params ETaskRequirement[] Requirements);
         void TaskAdd(ITask<context> Task);
         void TaskRemove(ITask<context> Task);
         void TaskForce(ITask<context> Task);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AnotherRTS.Gameplay.Entities.Units
@@ -7,11 +8,12 @@ namespace AnotherRTS.Gameplay.Entities.Units
     {
         List<ITask<Unit>> Tasks;
 
-        static readonly ETaskRequirement[] TaskRequirements =
+        private ETaskRequirement[] m_TaskRequirements =
         {
             ETaskRequirement.CanMove,
             ETaskRequirement.CanAttackGround
         };
+        public ETaskRequirement[] TaskRequirements { get { return m_TaskRequirements; } }
 
         public void TaskAdd(ITask<Unit> Task)
         {
@@ -44,7 +46,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
             // TODO: Unlazyfy
             return Tasks.Where(
                    x => x.TaskRequirements.Where(
-                   y => TaskRequirements.Contains(y)
+                   y => m_TaskRequirements.Contains(y)
                    ).Count() == x.TaskRequirements.Length
                    ).Count() == Tasks.Length;
         }
@@ -52,7 +54,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
         public bool TaskIsCompatible(params ETaskRequirement[] Requirements)
         {
             return Requirements.Where(
-                       x => TaskRequirements.Contains(x)
+                       x => m_TaskRequirements.Contains(x)
                    ).Count() == Requirements.Length;
         }
 
@@ -65,6 +67,12 @@ namespace AnotherRTS.Gameplay.Entities.Units
         {
             if (Tasks.Count > 0)
                 Tasks[0].RunTask(context);
+        }
+
+        public bool SetNewTaskRequirements(params ETaskRequirement[] Requirements)
+        {
+            m_TaskRequirements = Requirements;
+            return true;
         }
     }
 }
