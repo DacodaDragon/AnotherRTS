@@ -3,7 +3,7 @@ using Logger = BoneBox.Debug.Logger;
 
 namespace AnotherRTS.Gameplay.Entities
 {
-    public class Unit : Entity, ICommandableEntity<Unit>, IDamagable, IDestroyable, IDamageNotification<Unit>, IDeathNotification<Unit>, ISelectable
+    public abstract class Unit : Entity, ICommandableEntity<Unit>, IDamagable, IDestroyable, IDamageNotification<Unit>, IDeathNotification<Unit>, ISelectable
     {
         private ITaskManager<Unit> m_TaskManager = null;
         public ITaskManager<Unit> TaskManager { get { return m_TaskManager; } protected set { m_TaskManager = value; } }
