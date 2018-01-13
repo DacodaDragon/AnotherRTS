@@ -6,12 +6,12 @@ namespace AnotherRTS.Gameplay.Entities
     {
         public void OnEntityDeselect()
         {
-            throw new NotImplementedException();
+
         }
 
         public void OnEntitySelect()
         {
-            throw new NotImplementedException();
+
         }
     }
 }
