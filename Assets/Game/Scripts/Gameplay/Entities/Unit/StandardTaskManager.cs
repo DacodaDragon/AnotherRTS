@@ -69,10 +69,9 @@ namespace AnotherRTS.Gameplay.Entities.Units
                 Tasks[0].RunTask(context);
         }
 
-        public bool SetNewTaskRequirements(params ETaskRequirement[] Requirements)
+        public void SetNewTaskRequirements(params ETaskRequirement[] Requirements)
         {
             m_TaskRequirements = Requirements;
-            return true;
         }
     }
 }
