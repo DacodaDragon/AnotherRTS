@@ -12,6 +12,6 @@ namespace AnotherRTS.Gameplay.Entities
 
 		private EType m_Type;
 
-		public EType Type { get { return m_Type; } }
+		public EType Type { get { return m_Type; } protected set { m_Type = value; } }
 	}
 }
