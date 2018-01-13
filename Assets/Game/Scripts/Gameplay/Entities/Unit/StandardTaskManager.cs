@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AnotherRTS.Gameplay.Entities.Unit
+namespace AnotherRTS.Gameplay.Entities.Units
 {
     public class StandardTaskManager : ITaskManager<Unit>
     {
+        List<ITask<Unit>> Tasks;
+
         static readonly ETaskRequirement[] TaskRequirements =
         {
             ETaskRequirement.CanMove,
             ETaskRequirement.CanAttackGround
         };
-
-        List<ITask<Unit>> Tasks;
 
         public void TaskAdd(ITask<Unit> Task)
         {
@@ -41,8 +41,12 @@ namespace AnotherRTS.Gameplay.Entities.Unit
 
         public bool TaskIsCompatible(params ITask<Unit>[] Tasks)
         {
-            // TODO: Can be optimzed when we have the time!
-            return Tasks.Where(x => x.TaskRequirements.Where(y => TaskRequirements.Contains(y)).Count() == x.TaskRequirements.Length).Count() == Tasks.Length;
+            // TODO: Unlazyfy
+            return Tasks.Where(
+                   x => x.TaskRequirements.Where(
+                   y => TaskRequirements.Contains(y)
+                   ).Count() == x.TaskRequirements.Length
+                   ).Count() == Tasks.Length;
         }
 
         public bool TaskIsCompatible(params ETaskRequirement[] Requirements)

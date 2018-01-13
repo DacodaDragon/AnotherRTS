@@ -1,4 +1,4 @@
-﻿namespace AnotherRTS.Gameplay.Entities.Unit
+﻿namespace AnotherRTS.Gameplay.Entities.Units
 {
     public enum UnitKind
     {
