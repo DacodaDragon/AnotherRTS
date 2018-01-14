@@ -22,13 +22,16 @@ namespace AnotherRTS.Gameplay.Entities.Units
         public void MoveTowards(Vector3 target)
         {
             aStar.SetDestination(target);
-
         }
 
         public void MoveTowards(Transform target)
         {
             aStar.SetDestination(target.position);
+        }
 
+        public bool HasReachedTarget()
+        {
+            return (Vector3.Distance(transform.position, aStar.destination) < aStar.stoppingDistance);
         }
     }
 }
