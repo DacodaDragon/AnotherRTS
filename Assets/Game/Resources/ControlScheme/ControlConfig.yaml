@@ -43,6 +43,12 @@ keys:
       keycodes : [Mouse0]
       modifiers : []
 ---
+name: selectiondrag
+keys:
+    - name : drag select
+      keycodes : [Mouse0]
+      modifiers : []
+---
 name: units
 keys:
     - name : unit special 1
