@@ -33,12 +33,12 @@ namespace AnotherRTS.Gameplay.Entities.Units
 
         public void TaskForce(ITask<Unit> Task)
         {
-            // TODO: Find a faster way to perform this
-            List<ITask<Unit>> newTasks = new List<ITask<Unit>>(Tasks.Count + 1);
-            newTasks.Add(Task);
-            newTasks.AddRange(Tasks);
-            Tasks = newTasks;
-
+            Tasks.Insert(0, Task);
+            //// TODO: Find a faster way to perform this
+            //List<ITask<Unit>> newTasks = new List<ITask<Unit>>(Tasks.Count + 1);
+            //newTasks.Add(Task);
+            //newTasks.AddRange(Tasks);
+            //Tasks = newTasks;
         }
 
         public bool TaskIsCompatible(params ITask<Unit>[] Tasks)
