@@ -16,6 +16,11 @@ namespace AnotherRTS.Gameplay.Entities.Units
             TaskManager = new StandardTaskManager(this);
         }
 
+        public void Update()
+        {
+            TaskManager.TaskRun(this);
+        }
+
         public override void OnEntitySelect()
         {
             base.OnEntitySelect();
