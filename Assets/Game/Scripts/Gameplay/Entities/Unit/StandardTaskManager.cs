@@ -19,6 +19,8 @@ namespace AnotherRTS.Gameplay.Entities.Units
         public void TaskAdd(ITask<Unit> Task)
         {
             Tasks.Add(Task);
+            if (Tasks.Count == 1)
+                Tasks[0].StartTask(contextUnit);
         }
 
         public void TaskAssign(ITask<Unit> Task)
