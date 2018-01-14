@@ -103,7 +103,7 @@ namespace AnotherRTS.Gameplay
                         if (m_SelectedEntities[i] is ICommandableEntity<Unit>)
                         {
                             ((ICommandableEntity<Unit>)m_SelectedEntities[i])
-                                .TaskManager.TaskForce(new MoveTask(hitInfo.point));
+                                .TaskManager.TaskAdd(new MoveTask(hitInfo.point));
                         }
                     }
                 }
