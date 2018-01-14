@@ -13,6 +13,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
         public void Awake()
         {
             MovementController = GetComponent<IMovementController>();
+            TaskManager = new StandardTaskManager(this);
         }
 
         public override void OnEntitySelect()

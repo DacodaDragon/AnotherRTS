@@ -7,6 +7,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
     public class StandardTaskManager : ITaskManager<Unit>
     {
         List<ITask<Unit>> Tasks;
+        Unit contextUnit;
 
         private ETaskRequirement[] m_TaskRequirements =
         {
@@ -34,6 +35,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
         public void TaskForce(ITask<Unit> Task)
         {
             Tasks.Insert(0, Task);
+            Tasks[0].StartTask(contextUnit);
             //// TODO: Find a faster way to perform this
             //List<ITask<Unit>> newTasks = new List<ITask<Unit>>(Tasks.Count + 1);
             //newTasks.Add(Task);
@@ -82,9 +84,10 @@ namespace AnotherRTS.Gameplay.Entities.Units
                 Tasks[0].StartTask(context);
         }
 
-        public StandardTaskManager()
+        public StandardTaskManager(Unit context)
         {
             Tasks = new List<ITask<Unit>>();
+            contextUnit = context;
         }
     }
 }
