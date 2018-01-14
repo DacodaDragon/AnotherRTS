@@ -1,14 +1,19 @@
 ﻿using AnotherRTS.Util.Notification;
 using Logger = BoneBox.Debug.Logger;
+using UnityEngine.AI;
+using System;
 
 namespace AnotherRTS.Gameplay.Entities
 {
-    public abstract class Unit : Entity, ICommandableEntity<Unit>, IDamagable, IDestroyable, IDamageNotification<Unit>, IDeathNotification<Unit>, ISelectable
+    public abstract class Unit : Entity, ICommandableEntity<Unit>, IDamagable, IDestroyable, IDamageNotification<Unit>, IDeathNotification<Unit>, ISelectable, IMovable
     {
         private ITaskManager<Unit> m_TaskManager = null;
+        private IMovementController m_MovementController = null;
         public ITaskManager<Unit> TaskManager { get { return m_TaskManager; } protected set { m_TaskManager = value; } }
+        public IMovementController MovementController { get { return m_MovementController; } protected set { m_MovementController = value; } }
         public float Health { get; protected set; }
         public float MaxHealth { get; protected set; }
+
         public event NotifyChange<Unit, float> OnDamageRecieved;
         public event Notify<Unit> OnDeath;
 
@@ -22,7 +27,7 @@ namespace AnotherRTS.Gameplay.Entities
         public virtual void OnEntityDeselect() { Logger.Log(this, "Was Deselected!"); }
         public virtual void OnEntitySelect() { Logger.Log(this, "Was Selected!"); }
 
-        private void Start()
+        public void Start()
         {
             Type = EType.Unit;
         }
