@@ -6,7 +6,9 @@ namespace AnotherRTS.Gameplay.Entities
     {
         string TaskName { get; }
         ETaskRequirement[] TaskRequirements { get; }
+        void StartTask(Context context);
         void RunTask(Context context);
+        void EndTask(Context context);
     }
 }
 
