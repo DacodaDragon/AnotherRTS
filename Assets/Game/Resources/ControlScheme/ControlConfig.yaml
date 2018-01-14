@@ -52,16 +52,16 @@ keys:
       keycodes : [X]
       modifiers : []
     - name : unit move
-      keycodes : [Mouse0]
+      keycodes : [Mouse1]
       modifiers : []
     - name : unit move attack
-      keycodes : [Mouse0]
+      keycodes : [Mouse1]
       modifiers : [LeftControl]
     - name : unit move sequential
-      keycodes : [Mouse0]
+      keycodes : [Mouse1]
       modifiers : [LeftShift]
     - name : unit move sequential attack
-      keycodes : [Mouse0]
+      keycodes : [Mouse1]
       modifiers : [LeftShift, LeftControl]
 ---
 name: camera
