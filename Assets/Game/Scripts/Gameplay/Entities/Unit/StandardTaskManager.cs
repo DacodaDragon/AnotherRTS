@@ -81,5 +81,10 @@ namespace AnotherRTS.Gameplay.Entities.Units
             if (Tasks.Count > 0)
                 Tasks[0].StartTask(context);
         }
+
+        public StandardTaskManager()
+        {
+            Tasks = new List<ITask<Unit>>();
+        }
     }
 }
