@@ -25,6 +25,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
         {
             TaskClearAll();
             Tasks.Add(Task);
+            Tasks[0].StartTask(contextUnit);
         }
 
         public void TaskClearAll()
