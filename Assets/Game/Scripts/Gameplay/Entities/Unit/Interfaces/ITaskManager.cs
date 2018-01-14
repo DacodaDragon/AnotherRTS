@@ -10,9 +10,10 @@ namespace AnotherRTS.Gameplay.Entities
         void TaskAdd(ITask<context> Task);
         void TaskRemove(ITask<context> Task);
         void TaskForce(ITask<context> Task);
-        void TaskRun(context task);
-        void TaskClearAll();
         void TaskAssign(ITask<context> Task);
+        void TaskRun(context context);
+        void TaskNext(context context);
+        void TaskClearAll();
     }
 }
 
