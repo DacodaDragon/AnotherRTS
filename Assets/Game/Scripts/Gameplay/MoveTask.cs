@@ -30,7 +30,12 @@ namespace AnotherRTS.Gameplay
 
             public void RunTask(Unit context)
             {
-
+                bool reachedTarget = ((IMovable)context).MovementController.HasReachedTarget();
+                if (reachedTarget)
+                {
+                    ((ICommandableEntity<Unit>)context)
+                        .TaskManager.TaskNext(context);
+                }
             }
 
             public void StartTask(Unit context)
