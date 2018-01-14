@@ -19,9 +19,6 @@ namespace AnotherRTS.Gameplay
         private int m_SingleSelectKey;
         private int m_MultiSelectKey;
 
-        // TODO: Move commankey to commandable
-        private int m_CommandKey;
-
         private List<ISelectable> m_SelectedEntities;
 
         [SerializeField] private LayerMask m_SelectionLayers;
@@ -40,7 +37,6 @@ namespace AnotherRTS.Gameplay
             m_InputManager = InputManager.Instance;
             m_SingleSelectKey = m_InputManager.GetKeyID("single select");
             m_MultiSelectKey = m_InputManager.GetKeyID("multi select");
-            m_CommandKey = m_InputManager.GetKeyID("unit move");
             m_SelectionLayers.value = LayerMask.GetMask("Unit");
         }
 
@@ -87,26 +83,6 @@ namespace AnotherRTS.Gameplay
             if (m_InputManager.GetKeyUp(m_MultiSelectKey))
             {
                 TrySelect();
-            }
-
-            // TODO: Move commankey to commandable
-            if (m_InputManager.GetKeyUp(m_CommandKey))
-            {
-                Vector2 mousePosition = Input.mousePosition;
-                RaycastHit hitInfo;
-                bool hitSuccess = Physics.Raycast(m_Camera.ScreenPointToRay(mousePosition), out hitInfo, m_Camera.farClipPlane, LayerMask.GetMask("Default"));
-
-                if (hitSuccess)
-                {
-                    for (int i = 0; i < m_SelectedEntities.Count; i++)
-                    {
-                        if (m_SelectedEntities[i] is ICommandableEntity<Unit>)
-                        {
-                            ((ICommandableEntity<Unit>)m_SelectedEntities[i])
-                                .TaskManager.TaskAdd(new MoveTask(hitInfo.point));
-                        }
-                    }
-                }
             }
         }
     }
