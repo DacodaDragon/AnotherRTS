@@ -73,5 +73,13 @@ namespace AnotherRTS.Gameplay.Entities.Units
         {
             m_TaskRequirements = Requirements;
         }
+
+        public void TaskNext(Unit context)
+        {
+            Tasks[0].EndTask(context);
+            Tasks.RemoveAt(0);
+            if (Tasks.Count > 0)
+                Tasks[0].StartTask(context);
+        }
     }
 }
