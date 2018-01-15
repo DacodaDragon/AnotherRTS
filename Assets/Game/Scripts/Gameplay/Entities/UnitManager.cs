@@ -11,6 +11,11 @@ namespace AnotherRTS.Gameplay.Entities.Units
     {
         List<Unit> units = new List<Unit>();
 
+        public void Start()
+        {
+            units.AddRange(FindObjectsOfType<Unit>());
+        }
+
         public Unit[] GetAllUnits()
         {
             return units.ToArray();
