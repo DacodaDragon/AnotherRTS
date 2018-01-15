@@ -31,7 +31,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
 
         public bool HasReachedTarget()
         {
-            return (Vector3.Distance(transform.position-new Vector3(0, aStar.baseOffset, 0), aStar.destination) < 4);
+            return (aStar.remainingDistance <= aStar.stoppingDistance);
         }
     }
 }
