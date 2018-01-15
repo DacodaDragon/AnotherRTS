@@ -9,11 +9,13 @@ namespace AnotherRTS.Gameplay.Entities.Units
     {
         [SerializeField] Color m_SelectedColor;
         [SerializeField] Color m_DeselectedColor;
+        [SerializeField] GameObject m_SelectedGraphic;
         
         public void Awake()
         {
             MovementController = GetComponent<IMovementController>();
             TaskManager = new StandardTaskManager(this);
+            m_SelectedGraphic.SetActive(false);
         }
 
         public void Update()
@@ -25,12 +27,14 @@ namespace AnotherRTS.Gameplay.Entities.Units
         {
             base.OnEntitySelect();
             GetComponent<Renderer>().material.color = m_SelectedColor;
+            m_SelectedGraphic.SetActive(true);
         }
 
         public override void OnEntityDeselect()
         {
             base.OnEntityDeselect();
             GetComponent<Renderer>().material.color = m_DeselectedColor;
+            m_SelectedGraphic.SetActive(false);
 
         }
     }

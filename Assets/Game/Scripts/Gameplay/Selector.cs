@@ -8,16 +8,24 @@ using Logger = BoneBox.Debug.Logger;
 
 using AnotherRTS.Management.RemappableInput;
 using AnotherRTS.Gameplay.Entities;
-using System;
+using AnotherRTS.UI;
 
+using AnotherRTS.Gameplay.Entities.Units;
+
+using System;
 namespace AnotherRTS.Gameplay
 {
     public partial class Selector : Singleton<Selector>
     {
+        [SerializeField] SelectionGraphic selection;
+        public Vector2 m_startSelection;
         private UCamera m_Camera;
         private InputManager m_InputManager;
         private int m_SingleSelectKey;
         private int m_MultiSelectKey;
+        private int m_DragAddSelectionKey;
+        private int m_DragSelectKey;
+        private int m_CommandKey;
 
         private List<ISelectable> m_SelectedEntities;
 
@@ -37,7 +45,9 @@ namespace AnotherRTS.Gameplay
             m_InputManager = InputManager.Instance;
             m_SingleSelectKey = m_InputManager.GetKeyID("single select");
             m_MultiSelectKey = m_InputManager.GetKeyID("multi select");
+            m_CommandKey = m_InputManager.GetKeyID("global mouse right");
             m_SelectionLayers.value = LayerMask.GetMask("Unit");
+            selection.OnSelectionRelease += RecieveSelectionRect;
         }
 
         private void TrySelect()
@@ -50,14 +60,19 @@ namespace AnotherRTS.Gameplay
             {
                 ISelectable selectable = hitInfo.collider.GetComponent<ISelectable>();
 
-                if (selectable != null)
+                if (selectable == null)
                 {
-                    if (!m_SelectedEntities.Contains(selectable))
-                    {
-                        m_SelectedEntities.Add(selectable);
-                        selectable.OnEntitySelect();
-                        Logger.Log(this, $"Selected {selectable.ToString()}");
-                    }
+                    selectable = hitInfo.collider.GetComponentInParent<ISelectable>();
+                }
+
+                if (selectable == null)
+                    return;
+
+                if (!m_SelectedEntities.Contains(selectable))
+                {
+                    m_SelectedEntities.Add(selectable);
+                    selectable.OnEntitySelect();
+                    Logger.Log(this, $"Selected {selectable.ToString()}");
                 }
             }
         }
@@ -84,6 +99,58 @@ namespace AnotherRTS.Gameplay
             {
                 TrySelect();
             }
+
+            if (m_InputManager.GetKeyDown(m_SingleSelectKey))
+            {
+                m_startSelection = Input.mousePosition;
+            }
+
+            if (m_InputManager.GetKey(m_SingleSelectKey))
+            {
+                if (Vector2.Distance(m_startSelection, Input.mousePosition) > 4)
+                {
+                    selection.Enable(m_startSelection);
+                    gameObject.SetActive(false);
+                }
+            }
+
+            if (m_InputManager.GetKeyUp(m_CommandKey))
+            {
+                Vector2 mousePosition = Input.mousePosition;
+                RaycastHit hitInfo;
+                bool hitSuccess = Physics.Raycast(m_Camera.ScreenPointToRay(mousePosition), out hitInfo, m_Camera.farClipPlane);
+
+                if (hitSuccess)
+                {
+                    for (int i = 0; i < m_SelectedEntities.Count; i++)
+                    {
+                        if (m_SelectedEntities[i] is ICommandableEntity<Unit>)
+                        {
+                            ((ICommandableEntity<Unit>)m_SelectedEntities[i])
+                                .TaskManager.TaskAdd(new MoveTask(hitInfo.point));
+                        }
+                    }
+                }
+            }
+        }
+
+        private void RecieveSelectionRect(Rect r)
+        {
+            DeselectAll();
+
+            UnitManager manager = UnitManager.Instance;
+            EntityScreenInfo<Unit>[] info = manager.GetAllUnitsInScreen();
+
+            for (int i = 0; i < info.Length; i++)
+            {
+                if (r.Contains(info[i].position))
+                {
+                    m_SelectedEntities.Add(info[i].context);
+                    info[i].context.OnEntitySelect();
+                }
+            }
+
+            gameObject.SetActive(true);
         }
     }
 }
