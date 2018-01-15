@@ -39,11 +39,6 @@ namespace AnotherRTS.Gameplay.Entities.Units
         {
             Tasks.Insert(0, Task);
             Tasks[0].StartTask(contextUnit);
-            //// TODO: Find a faster way to perform this
-            //List<ITask<Unit>> newTasks = new List<ITask<Unit>>(Tasks.Count + 1);
-            //newTasks.Add(Task);
-            //newTasks.AddRange(Tasks);
-            //Tasks = newTasks;
         }
 
         public bool TaskIsCompatible(params ITask<Unit>[] Tasks)
