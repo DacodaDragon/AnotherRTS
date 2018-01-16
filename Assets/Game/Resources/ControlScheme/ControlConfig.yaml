@@ -69,6 +69,9 @@ keys:
     - name : unit move sequential attack
       keycodes : [Mouse1]
       modifiers : [LeftShift, LeftControl]
+---
+name: unit assign group
+keys:
     - name : unit assign group 1
       keycodes : [Alpha1]
       modifiers : [LeftControl]
@@ -98,7 +101,10 @@ keys:
       modifiers : [LeftControl]
     - name : unit assign group 0
       keycodes : [Alpha0]
-      modifiers : []
+      modifiers : [LeftControl]
+---
+name: unit select group
+keys:
     - name : unit select group 1
       keycodes : [Alpha1]
       modifiers : []
