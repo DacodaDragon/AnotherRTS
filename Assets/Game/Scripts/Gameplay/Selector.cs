@@ -39,6 +39,16 @@ namespace AnotherRTS.Gameplay
             m_SelectedEntities = new List<ISelectable>();
         }
 
+        public void SetSelection(ISelectable[] Selectables)
+        {
+            DeselectAll();
+            for (int i = 0; i < Selectables.Length; i++)
+            {
+                m_SelectedEntities.Add(Selectables[i]);
+                Selectables[i].OnEntitySelect();
+            }
+        }
+
         private void Start()
         {
             m_Camera = UCamera.main;
@@ -127,7 +137,7 @@ namespace AnotherRTS.Gameplay
                         if (m_SelectedEntities[i] is ICommandableEntity<Unit>)
                         {
                             ((ICommandableEntity<Unit>)m_SelectedEntities[i])
-                                .TaskManager.TaskAdd(new MoveTask(hitInfo.point));
+                                .TaskManager.TaskAssign(new MoveTask(hitInfo.point));
                         }
                     }
                 }
