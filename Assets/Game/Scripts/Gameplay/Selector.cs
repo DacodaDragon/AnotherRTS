@@ -45,7 +45,7 @@ namespace AnotherRTS.Gameplay
             m_InputManager = InputManager.Instance;
             m_SingleSelectKey = m_InputManager.GetKeyID("single select");
             m_MultiSelectKey = m_InputManager.GetKeyID("multi select");
-            m_CommandKey = m_InputManager.GetKeyID("global mouse right");
+            m_CommandKey = m_InputManager.GetKeyID("unit move");
             m_SelectionLayers.value = LayerMask.GetMask("Unit");
             selection.OnSelectionRelease += RecieveSelectionRect;
         }
