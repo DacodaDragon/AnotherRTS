@@ -124,6 +124,11 @@ namespace AnotherRTS.Management.RemappableInput
             m_held = false;
         }
 
+        public void SilentKill()
+        {
+            m_held = false;
+        }
+
         // [TODO] Fix Input to update when keys are released. 
         public void KeyUp(KeyCode KeyCode)
         {

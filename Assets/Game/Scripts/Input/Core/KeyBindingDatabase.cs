@@ -1,33 +1,63 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace AnotherRTS.Management.RemappableInput
 {
     public class KeyBindingDatabase
     {
-        private const string ERR_001 = "No controlgroup containing keybinding [{0}] exists!";
+        private const string ERR_001 = "No KeyGroup containing keybinding [{0}] exists!";
         private const string ERR_002 = "Method [{0}] did not subscribe to [{1}] because the keybinding doesn't exist";
         private const string ERR_003 = "Keybinding with name [{0}] wasn't found";
+        private const string ERR_004 = "KeyGroup with name [{0}] does not exist!";
 
         private ModifierKeyRegister m_ModifierRegister;
-        private Dictionary<string, int> m_NameIDPairs;
-        private Dictionary<int, KeyGroup> m_GroupDict;
+        private Dictionary<string, int> m_KeyNameToGroupID;
+        private Dictionary<int, KeyGroup> m_GroupIDDict;
+        private Dictionary<string, KeyGroup> m_GroupNameDict;
         private KeyGroup[] m_Groups;
+        private List<KeyGroup> m_active = new List<KeyGroup>(10);
+        private List<KeyGroup> m_inactive = new List<KeyGroup>(10);
         private string[] m_KeyNames;
 
         public string[] KeyNames { get { return m_KeyNames; } }
 
-        public KeyBindingDatabase(KeyGroup[] groups, Dictionary<string, int> nameId, ModifierKeyRegister register)
+        private void PerformOnAll<t>(t[] array, Action<t> function)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                function(array[i]);
+            }
+        }
+
+        private void PerformOnAll<t>(List<t> array, Action<t> function)
+        {
+            for (int i = 0; i < array.Count; i++)
+            {
+                function(array[i]);
+            }
+        }
+
+        public KeyBindingDatabase(KeyGroup[] groups, Dictionary<string, int> m_KeyDict, ModifierKeyRegister register)
         {
             m_Groups = groups;
-            m_NameIDPairs = nameId;
+
+            for (int i = 0; i < m_Groups.Length; i++)
+            {
+                m_active.Add(m_Groups[i]);
+            }
+
+            m_GroupNameDict = new Dictionary<string, KeyGroup>(groups.Length);
+            PerformOnAll(m_Groups, (KeyGroup x) => { m_GroupNameDict.Add(x.Name, x); });
+
+            m_KeyNameToGroupID = m_KeyDict;
             SetControlGroups(groups);
             m_ModifierRegister = register;
         }
 
         private void SetControlGroups(KeyGroup[] groups)
         {
-            m_GroupDict = new Dictionary<int, KeyGroup>();
+            m_GroupIDDict = new Dictionary<int, KeyGroup>();
             // Link all key ID's to their respective control groups
             // So we can find them back quickly later.
             for (int i = 0; i < groups.Length; i++)
@@ -35,7 +65,7 @@ namespace AnotherRTS.Management.RemappableInput
                 int[] IDs = groups[i].GetAllKeyIDs();
                 for (int j = 0; j < IDs.Length; j++)
                 {
-                    m_GroupDict.Add(IDs[j], groups[i]);
+                    m_GroupIDDict.Add(IDs[j], groups[i]);
                 }
             }
         }
@@ -44,30 +74,32 @@ namespace AnotherRTS.Management.RemappableInput
         {
             KeyGroup group;
 
-            if (!m_GroupDict.TryGetValue(id, out group))
-                throw new System.Exception(string.Format(ERR_001,id));
+            if (!m_GroupIDDict.TryGetValue(id, out group))
+                throw new System.Exception(string.Format(ERR_001, id));
 
             return group;
+        }
+
+        private KeyGroup FindKeyGroup(string name)
+        {
+            for (int i = 0; i < m_Groups.Length; i++)
+            {
+                if (m_Groups[i].Name == name)
+                    return m_Groups[i];
+            }
+            throw new System.Exception(string.Format(ERR_004, name));
         }
 
         public void KeyUp(KeyCode keycode)
         {
             m_ModifierRegister.KeyUp(keycode);
-
-            for (int i = 0; i < m_Groups.Length; i++)
-            {
-                m_Groups[i].KeyUp(keycode);
-            }
+            PerformOnAll(m_active, x => x.KeyUp(keycode));
         }
 
         public void KeyDown(KeyCode keycode)
         {
             m_ModifierRegister.KeyDown(keycode);
-
-            for (int i = 0; i < m_Groups.Length; i++)
-            {
-                m_Groups[i].KeyDown(keycode);
-            }
+            PerformOnAll(m_active, x => x.KeyDown(keycode));
         }
 
         public bool GetKeyUp(int id)
@@ -100,8 +132,8 @@ namespace AnotherRTS.Management.RemappableInput
         public int GetKeyID(string name)
         {
             int id;
-            if (!m_NameIDPairs.TryGetValue(name, out id))
-                throw new System.Exception(string.Format(ERR_003,name));
+            if (!m_KeyNameToGroupID.TryGetValue(name, out id))
+                throw new System.Exception(string.Format(ERR_003, name));
             return id;
         }
 
@@ -161,6 +193,31 @@ namespace AnotherRTS.Management.RemappableInput
         public void UnsubscribeKeyDown(string name, VoidDelegate method)
         {
             GetInteralKey(name).OnKeyDown -= method;
+        }
+
+        public void SetActiveGroup(string name, bool active)
+        {
+            KeyGroup group;
+            m_GroupNameDict.TryGetValue(name, out group);
+
+            if (!active)
+            {
+                if (m_active.Contains(group))
+                {
+                    group.SilentKill();
+                    m_inactive.Add(group);
+                    m_active.Remove(group);
+                }
+            }
+            else
+            {
+
+                if (m_inactive.Contains(group))
+                {
+                    m_active.Add(group);
+                    m_inactive.Remove(group);
+                }
+            }
         }
     }
 }

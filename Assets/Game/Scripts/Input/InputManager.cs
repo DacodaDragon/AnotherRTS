@@ -117,6 +117,11 @@ namespace AnotherRTS.Management.RemappableInput
             m_database.SubscribeKeyUp(name, method);
 
         }
+
+        public void SetActiveKeyGroup(string name, bool active)
+        {
+            m_database.SetActiveGroup(name, active);
+        }
         #endregion
     }
 }
