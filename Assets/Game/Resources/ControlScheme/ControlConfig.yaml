@@ -69,6 +69,66 @@ keys:
     - name : unit move sequential attack
       keycodes : [Mouse1]
       modifiers : [LeftShift, LeftControl]
+    - name : unit assign group 1
+      keycodes : [Alpha1]
+      modifiers : [LeftControl]
+    - name : unit assign group 2
+      keycodes : [Alpha2]
+      modifiers : [LeftControl]
+    - name : unit assign group 3
+      keycodes : [Alpha3]
+      modifiers : [LeftControl]
+    - name : unit assign group 4
+      keycodes : [Alpha4]
+      modifiers : [LeftControl]
+    - name : unit assign group 5
+      keycodes : [Alpha5]
+      modifiers : [LeftControl]
+    - name : unit assign group 6
+      keycodes : [Alpha6]
+      modifiers : [LeftControl]
+    - name : unit assign group 7
+      keycodes : [Alpha7]
+      modifiers : [LeftControl]
+    - name : unit assign group 8
+      keycodes : [Alpha8]
+      modifiers : [LeftControl]
+    - name : unit assign group 9
+      keycodes : [Alpha9]
+      modifiers : [LeftControl]
+    - name : unit assign group 0
+      keycodes : [Alpha0]
+      modifiers : []
+    - name : unit select group 1
+      keycodes : [Alpha1]
+      modifiers : []
+    - name : unit select group 2
+      keycodes : [Alpha2]
+      modifiers : []
+    - name : unit select group 3
+      keycodes : [Alpha3]
+      modifiers : []
+    - name : unit select group 4
+      keycodes : [Alpha4]
+      modifiers : []
+    - name : unit select group 5
+      keycodes : [Alpha5]
+      modifiers : []
+    - name : unit select group 6
+      keycodes : [Alpha6]
+      modifiers : []
+    - name : unit select group 7
+      keycodes : [Alpha7]
+      modifiers : []
+    - name : unit select group 8
+      keycodes : [Alpha8]
+      modifiers : []
+    - name : unit select group 9
+      keycodes : [Alpha9]
+      modifiers : []
+    - name : unit select group 0
+      keycodes : [Alpha0]
+      modifiers : []
 ---
 name: camera
 keys:
