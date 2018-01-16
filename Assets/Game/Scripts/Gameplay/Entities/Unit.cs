@@ -22,10 +22,10 @@ namespace AnotherRTS.Gameplay.Entities
         void ISelectable.OnEntityDeselect() { OnEntityDeselect(); }
         void ISelectable.OnEntitySelect() { OnEntitySelect(); }
 
-        public virtual void Damage(float amount) { Logger.Log(this, "Recieved Damage! " + amount); }
-        public virtual void Destroy() { Logger.Log(this, "Got Destroyed!"); }
-        public virtual void OnEntityDeselect() { Logger.Log(this, "Was Deselected!"); }
-        public virtual void OnEntitySelect() { Logger.Log(this, "Was Selected!"); }
+        public virtual void Damage(float amount) { }
+        public virtual void Destroy() { }
+        public virtual void OnEntityDeselect() { }
+        public virtual void OnEntitySelect() { }
 
         public void Start()
         {
