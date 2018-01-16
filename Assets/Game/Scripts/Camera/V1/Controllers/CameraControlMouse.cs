@@ -1,10 +1,11 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using AnotherRTS.Management.RemappableInput;
 
 namespace AnotherRTS.Camera
 {
     public class CameraControlsMouse : ICameraMovementBehaviour
     {
+        private InputManager m_input;
         private Vector2 m_moveStartPos;
         private Vector2 m_scrollStartPos;
         private int m_PixelThreshhold = 10;
@@ -12,8 +13,12 @@ namespace AnotherRTS.Camera
         private bool m_IsScrolling = false;
         private float m_Sensitivity = 0;
 
+        private int m_scrollKey;
+
         public CameraControlsMouse(float Sensitivity, int MoveMouseButton)
         {
+            m_input = InputManager.Instance;
+            m_scrollKey = m_input.GetKeyID("global mouse right");
             m_Sensitivity = Sensitivity;
         }
 
@@ -33,24 +38,31 @@ namespace AnotherRTS.Camera
         public void HandleMovement(ref Vector4 moveVec)
         {
             // Mouse down (activate) 
-            if (Input.GetMouseButtonDown(1))
+            if (m_input.GetKeyDown(m_scrollKey))
             {
                 m_moveStartPos = Input.mousePosition;
             }
 
             // Mouse up  (deactivate) 
-            if (Input.GetMouseButtonUp(1))
+            if (m_input.GetKeyUp(m_scrollKey) && m_IsMoving)
             {
                 m_moveStartPos = Vector2.zero;
                 m_IsMoving = false;
+                Debug.Log("Enabled Unit Commands");
+
+                m_input.SetActiveKeyGroup("units", true);
+
+
             }
 
             // While mouse down (Check)
-            if (Input.GetMouseButton(1))
+            if (m_input.GetKey(m_scrollKey) && !m_IsMoving)
             {
                 if ((m_moveStartPos - (Vector2)Input.mousePosition).magnitude > 10)
                 {
                     m_IsMoving = true;
+                    Debug.Log("Disabled Unit Commands");
+                    m_input.SetActiveKeyGroup("units", false);
                 }
             }
 
