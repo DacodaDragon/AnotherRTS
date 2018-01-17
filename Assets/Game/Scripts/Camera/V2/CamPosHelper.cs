@@ -24,11 +24,10 @@ namespace AnotherRTS.Camera.WIP
             m_Object.position = pos;
         }
 
-        public void MoveTo(Vector2 vec)
+        public void MoveTo(Vector3 vec)
         {
-            Vector3 position = vec;
-            position.y = m_terrain.SampleHeight(position) + 0.1f;
-            m_Object.position = position;
+            //vec.y = m_terrain.SampleHeight(vec) + 0.1f;
+            m_Object.position = vec;
         }
 
         public Vector3 GetCameraPosition(Transform camera)

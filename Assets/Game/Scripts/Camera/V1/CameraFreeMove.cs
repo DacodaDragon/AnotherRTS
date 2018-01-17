@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AnotherRTS.Camera
 {
-    public class CameraRTS : MonoBehaviour
+    public class CameraFreeMove : MonoBehaviour
     {
         [SerializeField] private float m_SpeedMultiplier;
         private Transform m_CamPosHelper;
