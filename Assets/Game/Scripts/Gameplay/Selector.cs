@@ -38,6 +38,13 @@ namespace AnotherRTS.Gameplay
         {
             base.Awake();
             m_SelectedEntities = new List<ISelectable>();
+            UnitManager manager = UnitManager.Instance;
+            manager.OnUnitLost += RemoveSelectable;
+        }
+
+        private void RemoveSelectable(ISelectable selectable)
+        {
+            SelectedEntities.Remove(selectable);
         }
 
         public void SetSelection(ISelectable[] Selectables)
@@ -48,6 +55,8 @@ namespace AnotherRTS.Gameplay
                 m_SelectedEntities.Add(Selectables[i]);
                 Selectables[i].OnEntitySelect();
             }
+
+
         }
 
         private void Start()

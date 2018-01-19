@@ -4,13 +4,14 @@ using UnityEngine;
 using System.Linq;
 
 using AnotherRTS.Management.RemappableInput;
+using AnotherRTS.Util.Notification;
 
 namespace AnotherRTS.Gameplay.Entities.Units
 {
     using Camera = UnityEngine.Camera;
-
     public class UnitManager : Singleton<UnitManager>
     {
+        public event Notify<Unit> OnUnitLost;
         InputManager inputManager;
         Selector selector;
         List<Unit> units = new List<Unit>();
@@ -22,6 +23,17 @@ namespace AnotherRTS.Gameplay.Entities.Units
             selector = Selector.Instance;
             m_SelectAllKey = inputManager.GetKeyID("select all");
             units.AddRange(FindObjectsOfType<Unit>());
+
+            for (int i = 0; i < units.Count; i++)
+            {
+                units[i].OnDeath += RecieveUnitDeath;
+            }
+        }
+
+        private void RecieveUnitDeath(Unit Context)
+        {
+            units.Remove(Context);
+            OnUnitLost?.Invoke(Context);
         }
 
         public Unit[] GetAllUnits()

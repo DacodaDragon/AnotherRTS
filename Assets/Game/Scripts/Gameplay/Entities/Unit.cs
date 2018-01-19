@@ -18,7 +18,7 @@ namespace AnotherRTS.Gameplay.Entities
         public event Notify<Unit> OnDeath;
 
         void IDamagable.Damage(float amount) { Damage(amount); }
-        void IDestroyable.Destroy() { Destroy(); }
+        void IDestroyable.Destroy() { OnDeath.Invoke(this); Destroy(); }
         void ISelectable.OnEntityDeselect() { OnEntityDeselect(); }
         void ISelectable.OnEntitySelect() { OnEntitySelect(); }
 

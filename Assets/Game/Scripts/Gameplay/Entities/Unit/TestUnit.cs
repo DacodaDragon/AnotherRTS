@@ -16,6 +16,8 @@ namespace AnotherRTS.Gameplay.Entities.Units
             MovementController = GetComponent<IMovementController>();
             TaskManager = new StandardTaskManager(this);
             m_SelectedGraphic.SetActive(false);
+            GetComponent<Renderer>().material.color = m_DeselectedColor;
+
         }
 
         public void Update()
@@ -36,6 +38,11 @@ namespace AnotherRTS.Gameplay.Entities.Units
             GetComponent<Renderer>().material.color = m_DeselectedColor;
             m_SelectedGraphic.SetActive(false);
 
+        }
+
+        public override void Destroy()
+        {
+            Destroy(gameObject);
         }
     }
 }

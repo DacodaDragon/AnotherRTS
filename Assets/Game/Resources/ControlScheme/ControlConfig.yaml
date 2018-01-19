@@ -33,6 +33,9 @@ keys:
 ---
 name: selection
 keys:
+    - name : single place
+      keycodes : [Mouse0]
+      modifiers : [Space]
     - name : single select
       keycodes : [Mouse0]
       modifiers : []
