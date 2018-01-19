@@ -3,16 +3,24 @@ using BoneBox.Core;
 using UnityEngine;
 using System.Linq;
 
+using AnotherRTS.Management.RemappableInput;
+
 namespace AnotherRTS.Gameplay.Entities.Units
 {
     using Camera = UnityEngine.Camera;
 
     public class UnitManager : Singleton<UnitManager>
     {
+        InputManager inputManager;
+        Selector selector;
         List<Unit> units = new List<Unit>();
+        int m_SelectAllKey;
 
         public void Start()
         {
+            inputManager = InputManager.Instance;
+            selector = Selector.Instance;
+            m_SelectAllKey = inputManager.GetKeyID("select all");
             units.AddRange(FindObjectsOfType<Unit>());
         }
 
@@ -54,6 +62,14 @@ namespace AnotherRTS.Gameplay.Entities.Units
             for (int i = 0; i < units.Length; i++)
             {
                 this.units.Remove(units[i]);
+            }
+        }
+
+        public void Update()
+        {
+            if (inputManager.GetKeyDown(m_SelectAllKey))
+            {
+                selector.SetSelection(units.ToArray());
             }
         }
     }

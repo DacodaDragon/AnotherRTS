@@ -11,6 +11,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
 
         public void Awake()
         {
+
             aStar = GetComponent<NavMeshAgent>();
         }
 
@@ -21,7 +22,9 @@ namespace AnotherRTS.Gameplay.Entities.Units
 
         public void MoveTowards(Vector3 target)
         {
-            aStar.SetDestination(target);
+            NavMeshPath path = new NavMeshPath();
+            aStar.CalculatePath(target,path);
+            aStar.SetPath(path);
         }
 
         public void MoveTowards(Transform target)

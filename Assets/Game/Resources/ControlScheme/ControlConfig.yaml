@@ -41,7 +41,13 @@ keys:
       modifiers : [LeftShift]
     - name : deselect
       keycodes : [Mouse0]
+      modifiers : [Escape]
+    - name : deselect all
+      keycodes : [Escape]
       modifiers : []
+    - name : select all
+      keycodes : [A]
+      modifiers : [LeftControl]
 ---
 name: selectiondrag
 keys:
@@ -139,16 +145,16 @@ keys:
 name: camera
 keys:
     - name : camera up
-      keycodes : [UpArrow]
+      keycodes : [UpArrow, W]
       modifiers : []
     - name : camera down
-      keycodes : [DownArrow]
+      keycodes : [DownArrow, S]
       modifiers : []
     - name : camera left
-      keycodes : [LeftArrow]
+      keycodes : [LeftArrow, A]
       modifiers : []
     - name : camera right
-      keycodes : [RightArrow]
+      keycodes : [RightArrow, D]
       modifiers : []
     - name : camera rotate left
       keycodes : [LeftArrow]

@@ -23,6 +23,7 @@ namespace AnotherRTS.Gameplay
         private InputManager m_InputManager;
         private int m_SingleSelectKey;
         private int m_MultiSelectKey;
+        private int m_DeselectAll;
         private int m_DragAddSelectionKey;
         private int m_DragSelectKey;
         private int m_CommandKey;
@@ -56,6 +57,7 @@ namespace AnotherRTS.Gameplay
             m_SingleSelectKey = m_InputManager.GetKeyID("single select");
             m_MultiSelectKey = m_InputManager.GetKeyID("multi select");
             m_CommandKey = m_InputManager.GetKeyID("unit move");
+            m_DeselectAll = m_InputManager.GetKeyID("deselect all");
             m_SelectionLayers.value = LayerMask.GetMask("Unit");
             selection.OnSelectionRelease += RecieveSelectionRect;
         }
@@ -108,6 +110,11 @@ namespace AnotherRTS.Gameplay
             if (m_InputManager.GetKeyUp(m_MultiSelectKey))
             {
                 TrySelect();
+            }
+
+            if (m_InputManager.GetKeyUp(m_DeselectAll))
+            {
+                DeselectAll();
             }
 
             if (m_InputManager.GetKeyDown(m_SingleSelectKey))

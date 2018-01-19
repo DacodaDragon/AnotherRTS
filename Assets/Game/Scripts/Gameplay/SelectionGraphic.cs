@@ -73,20 +73,20 @@ namespace AnotherRTS.UI
             }
         }
 
-        public void SetRectPosition(float x1, float y1, float x2, float y2, out Vector2 LU, out Vector2 RD)
+        public void SetRectPosition(float x1, float y1, float x2, float y2, out Vector2 start, out Vector2 end)
         {
             if (x1 < x2)
-            { LU.x = x1; RD.x = x2; }
+            { start.x = x1; end.x = x2; }
             else
-            { LU.x = x2; RD.x = x1; }
+            { start.x = x2; end.x = x1; }
             
             if (y1 < y2)
-            { LU.y = y1; RD.y = y2; }
+            { start.y = y1; end.y = y2; }
             else
-            { LU.y = y2; RD.y = y1 ; }
+            { start.y = y2; end.y = y1 ; }
 
-            m_rect.position = LU;
-            m_rect.sizeDelta = RD - LU;
+            m_rect.position = start;
+            m_rect.sizeDelta = end - start;
         }
 
         private void UpdateAlpha(float alpha)

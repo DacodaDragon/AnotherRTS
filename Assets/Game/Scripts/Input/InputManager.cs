@@ -9,8 +9,8 @@ namespace AnotherRTS.Management.RemappableInput
     public class InputManager : DDOLSingleton<InputManager>
     {
         [SerializeField]
-        TextAsset asset;
-        KeyBindingDatabase m_database;
+        private TextAsset asset;
+        private KeyBindingDatabase m_database;
 		
         public string[] KeyNames { get { return m_database.KeyNames; } }
 
@@ -29,10 +29,19 @@ namespace AnotherRTS.Management.RemappableInput
         // Shift keys are handled here
         private void Update()
         {
+            ////// Escape
+            //if (Input.GetKeyUp(KeyCode.Escape))
+            //    m_database.KeyUp(KeyCode.Escape);
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //    m_database.KeyDown(KeyCode.Escape);
+
+            //// Left Shift
             if (Input.GetKeyUp(KeyCode.LeftShift))
                 m_database.KeyUp(KeyCode.LeftShift);
             if (Input.GetKeyDown(KeyCode.LeftShift))
                 m_database.KeyDown(KeyCode.LeftShift);
+
+            ///// Right Shift
             if (Input.GetKeyUp(KeyCode.RightShift))
                 m_database.KeyUp(KeyCode.RightShift);
             if (Input.GetKeyDown(KeyCode.RightShift))

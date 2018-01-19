@@ -48,13 +48,28 @@ namespace AnotherRTS.Gameplay
                     if (Entities[i] == null)
                         break;
 
-                    //if (Time.unscaledTime < m_KeySelectDoubleTap[i] + m_doubleTapDelay)
-                    //{ break; } // TODO fire some event
+                    if (Time.unscaledTime < m_KeySelectDoubleTap[i] + m_doubleTapDelay)
+                    {
+                        Camera.CameraFocusMove.Instance.Goto(GroupToPosition(Entities[i]));
+                    }
 
                     m_KeySelectDoubleTap[i] = Time.unscaledTime;
                     selector.SetSelection(Entities[i]);
                 }
             }
+        }
+
+        private Vector3 GroupToPosition(ISelectable[] selectables)
+        {
+            Vector3 position = Vector3.zero;
+            for (int i = 0; i < selectables.Length; i++)
+            {
+                if (selectables[i] is Entity)
+                {
+                    position += (((Entity)selectables[i]).transform.position);
+                }
+            }
+            return position / selectables.Length;
         }
     }
 }
