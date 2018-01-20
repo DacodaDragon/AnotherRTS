@@ -27,6 +27,7 @@ namespace AnotherRTS.Gameplay
         private int m_DragAddSelectionKey;
         private int m_DragSelectKey;
         private int m_CommandKey;
+        private int m_CommandSquence;
 
         private List<ISelectable> m_SelectedEntities;
 
@@ -68,6 +69,7 @@ namespace AnotherRTS.Gameplay
             m_CommandKey = m_InputManager.GetKeyID("unit move");
             m_DeselectAll = m_InputManager.GetKeyID("deselect all");
             m_SelectionLayers.value = LayerMask.GetMask("Unit");
+            m_CommandSquence = m_InputManager.GetKeyID("unit move sequential");
             selection.OnSelectionRelease += RecieveSelectionRect;
         }
 
@@ -137,6 +139,25 @@ namespace AnotherRTS.Gameplay
                 {
                     selection.Enable(m_startSelection);
                     gameObject.SetActive(false);
+                }
+            }
+
+            if (m_InputManager.GetKeyUp(m_CommandSquence))
+            {
+                Vector2 mousePosition = Input.mousePosition;
+                RaycastHit hitInfo;
+                bool hitSuccess = Physics.Raycast(m_Camera.ScreenPointToRay(mousePosition), out hitInfo, m_Camera.farClipPlane);
+
+                if (hitSuccess)
+                {
+                    for (int i = 0; i < m_SelectedEntities.Count; i++)
+                    {
+                        if (m_SelectedEntities[i] is ICommandableEntity<Unit>)
+                        {
+                            ((ICommandableEntity<Unit>)m_SelectedEntities[i])
+                                .TaskManager.TaskAdd(new MoveTask(hitInfo.point));
+                        }
+                    }
                 }
             }
 

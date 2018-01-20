@@ -28,14 +28,11 @@ public class UnitPlacer : MonoBehaviour
             if (hitSuccess)
             {
                 NavMeshHit hit;
-
-                if (NavMesh.SamplePosition(hitInfo.point, out hit, 10, 0))
+                if (NavMesh.SamplePosition(hitInfo.point, out hit, 1, NavMesh.AllAreas))
                 {
-                    Vector3 pos = hit.position;
-                    GameObject obj = Instantiate(UnitPrefab, pos, Quaternion.identity);
+                    GameObject obj = Instantiate(UnitPrefab, hit.position, Quaternion.identity);
                     UnitManager.Instance.AddUnits(obj.GetComponent<Unit>());
                 }
-
             }
         }
 	}
