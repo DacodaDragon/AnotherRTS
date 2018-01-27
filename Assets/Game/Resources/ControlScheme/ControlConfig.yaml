@@ -34,6 +34,18 @@ keys:
       keycodes : [P]
       modifiers : []
 ---
+name: poking
+keys:
+    - name : poke
+      keycodes : [P]
+      modifiers : []
+    - name : poke strength up
+      keycodes : [Plus]
+      modifiers : [LeftShift]
+    - name : poke strength down
+      keycodes : [Minus]
+      modifiers : [LeftShift]
+---
 name: selection
 keys:
     - name : single place

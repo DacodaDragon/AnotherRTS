@@ -20,7 +20,7 @@ public class UnitPlacer : MonoBehaviour
     }
 
 	void Update () {
-		if (inputmanager.GetKeyUp(m_key))
+		if (inputmanager.GetKey(m_key))
         {
             RaycastHit hitInfo;
             bool hitSuccess = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Camera.main.farClipPlane);

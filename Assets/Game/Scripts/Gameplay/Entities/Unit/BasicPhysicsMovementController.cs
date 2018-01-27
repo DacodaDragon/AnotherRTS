@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
-
 using AnotherRTS.Management.RemappableInput;
 
 namespace AnotherRTS.Gameplay.Entities.Units

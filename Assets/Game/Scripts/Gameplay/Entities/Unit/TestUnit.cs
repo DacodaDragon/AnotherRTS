@@ -1,7 +1,4 @@
-﻿using AnotherRTS.Gameplay.Entities;
-using System;
-using AnotherRTS.Util.Notification;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AnotherRTS.Gameplay.Entities.Units
 {
@@ -13,6 +10,7 @@ namespace AnotherRTS.Gameplay.Entities.Units
 
         public void Awake()
         {
+            m_DeselectedColor = Color.HSVToRGB(Random.value,1,1);
             MovementController = GetComponent<IMovementController>();
             TaskManager = new StandardTaskManager(this);
             m_SelectedGraphic.SetActive(false);
