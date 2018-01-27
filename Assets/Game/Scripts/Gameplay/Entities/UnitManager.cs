@@ -5,6 +5,7 @@ using System.Linq;
 
 using AnotherRTS.Management.RemappableInput;
 using AnotherRTS.Util.Notification;
+using UnityEngine.SceneManagement;
 
 namespace AnotherRTS.Gameplay.Entities.Units
 {
@@ -14,13 +15,19 @@ namespace AnotherRTS.Gameplay.Entities.Units
         public event Notify<Unit> OnUnitLost;
         InputManager inputManager;
         Selector selector;
-        List<Unit> units = new List<Unit>();
+        [SerializeField] List<Unit> units = new List<Unit>();
         int m_SelectAllKey;
+
+        public UnitManager()
+        {
+            SceneManager.sceneLoaded += (Scene e, LoadSceneMode m) => { Restart(); };
+        }
 
         public void Start()
         {
             inputManager = InputManager.Instance;
             selector = Selector.Instance;
+            units.Clear();
             m_SelectAllKey = inputManager.GetKeyID("select all");
             units.AddRange(FindObjectsOfType<Unit>());
 
@@ -28,6 +35,11 @@ namespace AnotherRTS.Gameplay.Entities.Units
             {
                 units[i].OnDeath += RecieveUnitDeath;
             }
+        }
+
+        public void Restart()
+        {
+            Start();
         }
 
         private void RecieveUnitDeath(Unit Context)
