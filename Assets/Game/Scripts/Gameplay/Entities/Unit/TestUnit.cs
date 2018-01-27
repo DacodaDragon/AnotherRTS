@@ -10,17 +10,16 @@ namespace AnotherRTS.Gameplay.Entities.Units
         [SerializeField] Color m_SelectedColor;
         [SerializeField] Color m_DeselectedColor;
         [SerializeField] GameObject m_SelectedGraphic;
-        
+
         public void Awake()
         {
             MovementController = GetComponent<IMovementController>();
             TaskManager = new StandardTaskManager(this);
             m_SelectedGraphic.SetActive(false);
             GetComponent<Renderer>().material.color = m_DeselectedColor;
-
         }
 
-        public void Update()
+		public void Update()
         {
             TaskManager.TaskRun(this);
         }
