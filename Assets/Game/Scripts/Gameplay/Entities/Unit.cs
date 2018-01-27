@@ -27,7 +27,7 @@ namespace AnotherRTS.Gameplay.Entities
         public virtual void OnEntityDeselect() { }
         public virtual void OnEntitySelect() { }
 
-        public void Start()
+        public virtual void Start()
         {
             Type = EType.Unit;
         }

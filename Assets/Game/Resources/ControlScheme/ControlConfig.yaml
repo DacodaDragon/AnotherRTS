@@ -30,6 +30,9 @@ keys:
     - name : global mouse right
       keycodes : [Mouse1]
       modifiers : []
+    - name : global p
+      keycodes : [P]
+      modifiers : []
 ---
 name: selection
 keys:
