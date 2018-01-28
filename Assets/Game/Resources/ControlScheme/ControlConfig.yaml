@@ -30,21 +30,15 @@ keys:
     - name : global mouse right
       keycodes : [Mouse1]
       modifiers : []
+    - name : global scroll up
+      keycodes : [Mouse6]
+      modifiers : []
+    - name : global scroll down
+      keycodes : [Mouse5]
+      modifiers : []
     - name : global p
-      keycodes : [P]
-      modifiers : []
----
-name: poking
-keys:
-    - name : poke
-      keycodes : [P]
-      modifiers : []
-    - name : poke strength up
-      keycodes : [Plus]
-      modifiers : [LeftShift]
-    - name : poke strength down
-      keycodes : [Minus]
-      modifiers : [LeftShift]
+      keycodes : [Mouse0]
+      modifiers : [P]
 ---
 name: selection
 keys:
