@@ -16,7 +16,7 @@ namespace AnotherRTS.Camera
             m_CamPosHelper = new GameObject("CamPositionHelper").transform;
             m_CamPosHelper.SetParent(transform);
             m_CameraMovemenManager.Add(new CameraControlKeyboard());
-            m_CameraMovemenManager.Add(new CameraControlsMouse(0.02f, 1));
+            m_CameraMovemenManager.Add(new CameraControlsMouse(0.05f, 0.2f));
 
             if (!Debug.isDebugBuild)
             m_CameraMovemenManager.Add(new CameraControllerCameraBorders());
