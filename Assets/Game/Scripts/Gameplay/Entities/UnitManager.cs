@@ -78,6 +78,10 @@ namespace AnotherRTS.Gameplay.Entities.Units
 
         public void AddUnits(params Unit[] units)
         {
+            for (int i = 0; i < units.Length; i++)
+            {
+                units[i].OnDeath += RecieveUnitDeath;
+            }
             this.units.AddRange(units);
         }
 
