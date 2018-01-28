@@ -35,6 +35,19 @@ namespace AnotherRTS.Management.RemappableInput
             //if (Input.GetKeyDown(KeyCode.Escape))
             //    m_database.KeyDown(KeyCode.Escape);
 
+            // Simple hack to implement scrolling
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                m_database.KeyUp(KeyCode.Mouse6);
+                m_database.KeyDown(KeyCode.Mouse6);
+            }
+
+            if (Input.mouseScrollDelta.y < 0)
+            {
+                m_database.KeyUp(KeyCode.Mouse5);
+                m_database.KeyDown(KeyCode.Mouse5);
+            }
+
             //// Left Shift
             if (Input.GetKeyUp(KeyCode.LeftShift))
                 m_database.KeyUp(KeyCode.LeftShift);
@@ -70,8 +83,6 @@ namespace AnotherRTS.Management.RemappableInput
                 case 2: return KeyCode.Mouse2;
                 case 3: return KeyCode.Mouse3;
                 case 4: return KeyCode.Mouse4;
-                case 5: return KeyCode.Mouse5;
-                case 6: return KeyCode.Mouse6;
                 default: return KeyCode.None;
             }
         }
