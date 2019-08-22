@@ -11,4 +11,5 @@ The premise behind the rts game is that all tanks are micromachines and are very
 - The game supports propper unity grouping and management.
 - Units can properly queue commands (despite there only being a move command)
 - Camera controls are actually pretty smooth
-- I am running out of idea's to say. I should revamp this README more later. 
+- I am running out of idea's to say. I should revamp this README more later.
+- You should really just try it out it's pretty funny to mess around with. HTML5 link is on the top of the readme. 
